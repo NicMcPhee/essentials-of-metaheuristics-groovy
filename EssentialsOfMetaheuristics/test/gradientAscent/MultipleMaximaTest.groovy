@@ -20,14 +20,14 @@ class MultipleMaximaTest extends Specification {
 
 	def "Basic call with just the objective function"() {
 		expect:
-		(ascender.findMaximum(f)) 
-			anyOf(closeTo(LOCAL_MAX, EPSILON), closeTo(GLOBAL_MAX, EPSILON))
+		(ascender.findMaximum(f)) anyOf([LOCAL_MAX, GLOBAL_MAX].collect 
+			{ target -> closeTo(target, EPSILON) })
 	}
 
 	def "Calls from several starting points"() {
 		expect:
-		(ascender.findMaximum(f, start)) 
-			anyOf(closeTo(LOCAL_MAX, EPSILON), closeTo(GLOBAL_MAX, EPSILON))
+		(ascender.findMaximum(f, start)) anyOf([LOCAL_MAX, GLOBAL_MAX].collect 
+			{ target -> closeTo(target, EPSILON) })
 
 		where:
 		start << [-2, 0, 1, 2]
