@@ -1,15 +1,15 @@
 package gradientAscent;
 
 import static org.junit.Assert.*
-import spock.lang.Specification
 import static spock.util.matcher.HamcrestMatchers.closeTo
+import spock.lang.Specification
 
 /**
  * Tests for a function with a single maximum at x=1.
  * 
  * @author mcphee
  */
-class GradientAscenderSingleMaxTest extends Specification {
+class SingleMaxTest extends Specification {
 	static final EPSILON = 1E-5
 	def f = { x ->
 		// f(x) = -(x-5)*(2x+6) = -(2x^2 - 4x - 30)
