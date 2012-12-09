@@ -4,7 +4,12 @@ import static org.junit.Assert.*
 import spock.lang.Specification
 import static spock.util.matcher.HamcrestMatchers.closeTo
 
-class GradientAscenderTest extends Specification {
+/**
+ * Tests for a function with a single maximum at x=1.
+ * 
+ * @author mcphee
+ */
+class GradientAscenderSingleMaxTest extends Specification {
 	static final EPSILON = 1E-5
 	def f = { x ->
 		// f(x) = -(x-5)*(2x+6) = -(2x^2 - 4x - 30)
@@ -21,7 +26,7 @@ class GradientAscenderTest extends Specification {
 		(ascender.findMaximum(f)) closeTo(1, EPSILON)
 	}
 
-	def "Calls from numerous starting points"() {
+	def "Calls from several starting points"() {
 		expect:
 		(ascender.findMaximum(f, start)) closeTo(1, EPSILON)
 
