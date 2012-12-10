@@ -1,57 +1,29 @@
 package hillClimbing
 
-class HillClimber {
+import problems.OnesMax
+
+class HillClimber {	
+	def problem
+	
 	// Happily this ended up being an almost direct copy from Sean's book.
-	def maximize(quality, create, copy, tweak, terminate) {
-		def s = create()
-		while (!terminate(s)) {
-			def r = tweak(copy(s))
-			if (quality(r) > quality(s)) {
+	def maximize() {
+		def s = problem.create()
+		while (!problem.terminate(s)) {
+			def r = problem.tweak(problem.copy(s))
+			if (problem.quality(r) > problem.quality(s)) {
 				s = r
 			}
 		}
 		return s
 	}
 	
-	// I bet there's a way I can do this as a "one-liner" using some
-	// nifty Groovy tool.
-	static arrayOfZeros(int n) {
-		def result = []
-		for (int i=0; i<n; ++i) {
-			result << 0
-		}
-		return result
-	}
-	
 	// I should move all this into a OnesMax class rather than plop it here.
 	public static void main(String[] args) {
-		def rand = new java.util.Random()
-		def count = 0
-		def maxIterations = 1000
-
-		def quality = { a -> a.count(1) }
-		def create = { arrayOfZeros(100) }
-		def copy = { a -> a.clone() }
-		def tweak = { a -> 
-			a.collect {
-				// I'm using the common 1/N rule for mutation, i.e.,
-				// have the mutation probability be 1/N where N is the
-				// length of the bistring.
-				if (rand.nextInt(a.size()) == 0) {
-					1-it
-				} else {
-					it
-				}
-			}
-		}
-		def terminate = {
-			++count
-			count >= maxIterations
-		}
-		
-		def climber = new HillClimber()
-		def result = climber.maximize(quality, create, copy, tweak, terminate)
+		def onesMax = new OnesMax()
+		def climber = new HillClimber(problem : onesMax)
+		def result = climber.maximize()
 		System.out.println(result);
-		System.out.println(quality(result));
+		System.out.println(onesMax.quality(result));
+		System.out.println(onesMax.count);
 	}
 }
