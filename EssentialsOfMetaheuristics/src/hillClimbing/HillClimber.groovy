@@ -15,15 +15,5 @@ class HillClimber {
 			}
 		}
 		return s
-	}
-	
-	// I should move all this into a OnesMax class rather than plop it here.
-	public static void main(String[] args) {
-		def onesMax = new OnesMax()
-		def climber = new HillClimber(problem : onesMax)
-		def result = climber.maximize()
-		System.out.println(result);
-		System.out.println(onesMax.quality(result));
-		System.out.println(onesMax.count);
-	}
+	}	
 }
