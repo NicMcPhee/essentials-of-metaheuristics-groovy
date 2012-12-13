@@ -9,6 +9,6 @@ class Main {
 		def result = climber.maximize()
 		System.out.println(result);
 		System.out.println(onesMax.quality(result));
-		System.out.println(onesMax.count);
+		System.out.println(onesMax.evalCount);
 	}
 }

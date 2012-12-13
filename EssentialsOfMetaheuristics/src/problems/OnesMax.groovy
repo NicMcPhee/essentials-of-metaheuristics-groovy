@@ -2,11 +2,14 @@ package problems
 
 class OnesMax {
 	private rand = new java.util.Random()
-	private count = 0
+	private evalCount = 0
 	def maxIterations = 1000
 	def numBits = 1000
 
-	def quality = { a -> a.count(1) }
+	def quality = { a ->
+		++evalCount
+		a.count(1)
+	}
 	
 	// I bet there's a way I can do this as a "one-liner" using some
 	// nifty Groovy tool.
@@ -36,7 +39,6 @@ class OnesMax {
 	}
 	
 	def terminate = { a ->
-		++count
-		count >= maxIterations || a.every { it == 1 }
+		evalCount >= maxIterations || a.every { it == 1 }
 	}
 }
