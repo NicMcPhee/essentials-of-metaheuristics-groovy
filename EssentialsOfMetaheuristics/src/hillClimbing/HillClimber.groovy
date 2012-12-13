@@ -8,10 +8,13 @@ class HillClimber {
 	// Happily this ended up being an almost direct copy from Sean's book.
 	def maximize() {
 		def s = problem.create()
+		def sQuality = problem.quality(s)
 		while (!problem.terminate(s)) {
 			def r = problem.tweak(problem.copy(s))
-			if (problem.quality(r) > problem.quality(s)) {
+			def rQuality = problem.quality(r)
+			if (rQuality > sQuality) {
 				s = r
+				sQuality = rQuality
 			}
 		}
 		return s
