@@ -1,4 +1,4 @@
-package gradientAscent;
+package singleStateMethods;
 
 import static org.junit.Assert.*
 import static spock.util.matcher.HamcrestMatchers.closeTo

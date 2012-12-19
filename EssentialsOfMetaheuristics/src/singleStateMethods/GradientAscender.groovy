@@ -1,4 +1,4 @@
-package gradientAscent
+package singleStateMethods
 
 /**
  * A very simple implementation of Gradient Ascent as described in Chapter 1 of

@@ -1,4 +1,4 @@
-package gradientAscent
+package singleStateMethods
 
 import static org.hamcrest.core.AnyOf.anyOf
 import static org.junit.Assert.*
