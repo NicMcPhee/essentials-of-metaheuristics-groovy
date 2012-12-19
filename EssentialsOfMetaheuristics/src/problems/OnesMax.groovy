@@ -2,9 +2,9 @@ package problems
 
 class OnesMax {
 	private rand = new java.util.Random()
-	private evalCount = 0
-	def maxIterations = 1000
-	def numBits = 1000
+	Integer evalCount = 0
+	Integer maxIterations = 1000
+	Integer numBits = 1000
 
 	def quality = { a ->
 		++evalCount
@@ -21,7 +21,9 @@ class OnesMax {
 		return result
 	}
 	
-	def create = { arrayOfZeros(numBits) }
+	def create = { n = numBits ->
+		arrayOfZeros(n) 
+	}
 	
 	def copy = { a -> a.clone() }
 
