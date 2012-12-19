@@ -1,4 +1,4 @@
-package hillClimbing
+package singleStateMethods
 
 import problems.OnesMax
 
