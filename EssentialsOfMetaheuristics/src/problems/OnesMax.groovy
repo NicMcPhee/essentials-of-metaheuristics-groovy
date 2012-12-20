@@ -11,18 +11,9 @@ class OnesMax {
 		a.count(1)
 	}
 	
-	// I bet there's a way I can do this as a "one-liner" using some
-	// nifty Groovy tool.
-	private arrayOfZeros(int n) {
-		def result = []
-		for (int i=0; i<n; ++i) {
-			result << 0
-		}
-		return result
-	}
-	
 	def create = { n = numBits ->
-		arrayOfZeros(n) 
+		// Makes an array of n zeros.
+		[0]*n 
 	}
 	
 	def copy = { a -> a.clone() }
