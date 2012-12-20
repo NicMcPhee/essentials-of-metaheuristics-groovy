@@ -46,7 +46,7 @@ class OnesMax {
 		}
 	}
 	
-	def terminate = { a ->
-		evalCount >= maxIterations || a.every { it == 1 }
+	def terminate = { a, q = quality(a) ->
+		evalCount >= maxIterations || q == a.size()
 	}
 }

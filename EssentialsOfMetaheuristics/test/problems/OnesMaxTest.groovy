@@ -62,24 +62,44 @@ class OnesMaxTest extends Specification {
 		onesMax.terminate([1] * 100)
 	}
 	
-	def "terminates when exceeds max evals"() {
+	def "terminates when exceeds max evals, quality computed by terminate"() {
 		when:
-		onesMax.evalCount = onesMax.maxIterations - 1
+		onesMax.evalCount = onesMax.maxIterations - 2
 		
 		then:
 		!onesMax.terminate([0]*100)
 		
 		when:
-		onesMax.evalCount = onesMax.maxIterations
+		onesMax.evalCount = onesMax.maxIterations - 1
 		
 		then:
 		onesMax.terminate([0]*100)
 
 		when:
-		onesMax.evalCount = onesMax.maxIterations + 1
+		onesMax.evalCount = onesMax.maxIterations
 		
 		then:
 		onesMax.terminate([0]*100)
+	}
+	
+	def "terminates when exceeds max evals, quality handed to terminate"() {
+		when:
+		onesMax.evalCount = onesMax.maxIterations - 1
+		
+		then:
+		!onesMax.terminate([0]*100, 0)
+		
+		when:
+		onesMax.evalCount = onesMax.maxIterations
+		
+		then:
+		onesMax.terminate([0]*100, 0)
+
+		when:
+		onesMax.evalCount = onesMax.maxIterations + 1
+		
+		then:
+		onesMax.terminate([0]*100, 0)
 	}
 	
 	def "tweak returns an array of bits of the same length"() {
@@ -124,9 +144,8 @@ class OnesMaxTest extends Specification {
 		onesMax = new OnesMax(numBits : NUM_BITS, maxIterations : MAX_ITERATIONS)
 		
 		expect:
-		MAX_ITERATIONS.times {
+		(MAX_ITERATIONS-1).times {
 			assert !onesMax.terminate([1, 1, 1, 1, 1, 0, 1, 1])
-			onesMax.quality(a)
 		}
 		onesMax.terminate([1, 1, 1, 1, 1, 0, 1, 1])
 	}
