@@ -18,6 +18,16 @@ class OnesMax {
 	
 	def copy = { a -> a.clone() }
 
+	/*
+	 * Having this take an option array of bits works, but probably isn't
+	 * super efficient, especially for large bit strings, as we need to allocate
+	 * memory for and construct the full set of bits, which is really not
+	 * necessary. An alternative would be to send in a closure that will return
+	 * a 0 or 1 every time it's called. The default closure could return random
+	 * bits, while for testing we could send in a closure that advances through
+	 * an fixed array of bits. For now, however, this works, so I'm going to leave
+	 * it alone and move on.
+	 */
 	def tweak = { a, randomBits = null ->
 		if (randomBits == null) {
 			randomBits = (0..<a.size()).collect {
