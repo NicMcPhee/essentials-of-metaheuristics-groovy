@@ -107,4 +107,27 @@ class OnesMaxTest extends Specification {
 			(aBit == mBit && s == 0) || (aBit != mBit && s == 1)
 		}
 	}
+	
+	def "terminate when we have all ones"() {
+		expect:
+		onesMax.terminate([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
+	}
+	
+	def "don't terminate when there's a zero"() {
+		expect:
+		!onesMax.terminate([1, 1, 1, 1, 1, 0, 1, 1])
+	}
+	
+	def "terminate when we max out evals"() {
+		final MAX_ITERATIONS = 10
+		def a = [1, 1, 1, 1, 1, 0, 1, 1]
+		onesMax = new OnesMax(numBits : NUM_BITS, maxIterations : MAX_ITERATIONS)
+		
+		expect:
+		MAX_ITERATIONS.times {
+			assert !onesMax.terminate([1, 1, 1, 1, 1, 0, 1, 1])
+			onesMax.quality(a)
+		}
+		onesMax.terminate([1, 1, 1, 1, 1, 0, 1, 1])
+	}
 }
