@@ -9,7 +9,7 @@ class HillClimber {
 	def maximize() {
 		def s = problem.create()
 		def sQuality = problem.quality(s)
-		while (!problem.terminate(s)) {
+		while (!problem.terminate(s, sQuality)) {
 			def r = problem.tweak(problem.copy(s))
 			def rQuality = problem.quality(r)
 			if (rQuality > sQuality) {

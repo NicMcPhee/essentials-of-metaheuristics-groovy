@@ -4,7 +4,7 @@ import problems.OnesMax
 
 class Main {
 	static main(args) {
-		def onesMax = new OnesMax(numBits : 100, maxIterations : 500)
+		def onesMax = new OnesMax(numBits : 100, maxIterations : 250)
 		def climber = new HillClimber(problem : onesMax)
 		def result = climber.maximize()
 		println "Best string: $result"
