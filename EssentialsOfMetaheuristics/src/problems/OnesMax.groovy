@@ -27,15 +27,20 @@ class OnesMax {
 	
 	def copy = { a -> a.clone() }
 
-	def tweak = { a ->
-		a.collect { bit ->
-			// I'm using the common 1/N rule for mutation, i.e.,
-			// have the mutation probability be 1/N where N is the
-			// length of the bistring.
-			if (rand.nextInt(a.size()) == 0) {
-				1-bit
+	def tweak = { a, randomBits = null ->
+		if (randomBits == null) {
+			randomBits = (0..<a.size()).collect {
+				// I'm using the common 1/N rule for mutation, i.e.,
+				// have the mutation probability be 1/N where N is the
+				// length of the bistring.
+				rand.nextInt(a.size()) == 0
+			}
+		}
+		(0..<a.size()).collect { i ->
+			if (randomBits[i]) {
+				1-a[i]
 			} else {
-				bit
+				a[i]
 			}
 		}
 	}

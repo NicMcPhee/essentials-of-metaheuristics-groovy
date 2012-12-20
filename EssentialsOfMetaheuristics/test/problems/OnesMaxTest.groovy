@@ -81,4 +81,30 @@ class OnesMaxTest extends Specification {
 		then:
 		onesMax.terminate([0]*100)
 	}
+	
+	def "tweak returns an array of bits of the same length"() {
+		given:
+		def a = [1, 0, 1, 0, 0, 0, 0, 1]
+		
+		when:
+		def mutatedBits = onesMax.tweak(a)
+		
+		then:
+		mutatedBits.size() == a.size()
+		mutatedBits.every { it == 0 || it == 1 }
+	}
+	
+	def "tweak mutates correctly and only when appropriate"() {
+		given:
+		def a = [1, 0, 1, 0, 0, 0, 0, 1]
+		def shouldMutate = [0, 0, 0, 1, 1, 0, 1, 0]
+		
+		when:
+		def mutatedBits = onesMax.tweak(a, shouldMutate)
+		
+		then:
+		[a, mutatedBits, shouldMutate].transpose().every { aBit, mBit, s ->
+			(aBit == mBit && s == 0) || (aBit != mBit && s == 1)
+		}
+	}
 }
