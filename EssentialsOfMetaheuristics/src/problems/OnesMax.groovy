@@ -32,7 +32,7 @@ class OnesMax {
 			randomBits = (0..<a.size()).collect {
 				// I'm using the common 1/N rule for mutation, i.e.,
 				// have the mutation probability be 1/N where N is the
-				// length of the bistring.
+				// length of the bit string.
 				rand.nextInt(a.size()) == 0
 			}
 		}
