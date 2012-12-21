@@ -12,3 +12,5 @@ Intelligence course.
 So far I've finished:
    * A simple implementation of Gradient Ascent for functions of one variable.
    * A simple hill-climber
+   * A steepest ascent hill-climber
+   * A steepest ascent hill-climber with replacement
