@@ -1,12 +1,14 @@
 package singleStateMethods
 
 import problems.OnesMax
+import groovy.transform.ToString
 
+@ToString
 class HillClimber {	
-	def problem
+	final name = "HillClimber"
 	
 	// Happily this ended up being an almost direct copy from Sean's book.
-	def maximize() {
+	def maximize(problem) {
 		def s = problem.create()
 		def sQuality = problem.quality(s)
 		while (!problem.terminate(s, sQuality)) {

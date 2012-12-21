@@ -2,6 +2,10 @@ package singleStateMethods
 
 import problems.OnesMax
 
+/*
+ * TODO: MAKE THIS A LOOP TO RUN 30 TIMES AND PRINT RESULTS IN R-STYLE OUTPUT
+ * SO WE CAN COMPARE APPROACHES FOR STATISTICALLY SIGNIFICANT DIFFERENCES!
+ */
 class Main {
 	static main(args) {
 		def onesMax = new OnesMax(numBits : 100, maxIterations : 250)

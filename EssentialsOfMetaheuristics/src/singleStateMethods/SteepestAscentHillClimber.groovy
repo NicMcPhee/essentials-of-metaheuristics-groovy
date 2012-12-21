@@ -1,12 +1,13 @@
 package singleStateMethods
 
 import problems.OnesMax
+import groovy.transform.ToString
 
-class SteepestAscentHillClimber {	
-	def problem
+@ToString
+class SteepestAscentHillClimber {
 	Integer numGradientSamples = 1
 	
-	def maximize() {
+	def maximize(problem) {
 		def s = problem.create()
 		def sQuality = problem.quality(s)
 		
@@ -27,5 +28,5 @@ class SteepestAscentHillClimber {
 			}
 		}
 		return s
-	}	
+	}
 }
