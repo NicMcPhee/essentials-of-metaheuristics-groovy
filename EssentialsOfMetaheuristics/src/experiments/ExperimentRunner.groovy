@@ -1,5 +1,6 @@
 package experiments
 
+import problems.LeadingOnes
 import problems.OnesMax
 import singleStateMethods.HillClimber
 import singleStateMethods.SteepestAscentHillClimber
@@ -30,7 +31,8 @@ class ExperimentRunner {
 			new SteepestAscentHillClimberWithReplacement(numGradientSamples : 4),
 		]
 		def problems = [
-			new OnesMax(numBits : 100, maxIterations : 250)
+			new OnesMax(numBits : 100, maxIterations : 250),
+			new LeadingOnes(numBits : 100, maxIterations : 1000)
 		]
 		// It would be nice to collect the total time here and include it in the
 		// output.
