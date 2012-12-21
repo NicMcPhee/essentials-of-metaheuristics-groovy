@@ -33,4 +33,8 @@ class SteepestAscentHillClimberWithReplacement {
 		}
 		return s
 	}
+
+	String toString() {
+		"SAHCWR_" + numGradientSamples
+	}
 }

@@ -2,7 +2,7 @@ package problems
 
 import groovy.transform.ToString
 
-@ToString
+
 class OnesMax {
 	private rand = new java.util.Random()
 	Integer evalCount = 0
@@ -51,5 +51,9 @@ class OnesMax {
 	
 	def terminate = { a, q = quality(a) ->
 		evalCount >= maxIterations || q == a.size()
+	}
+	
+	String toString() {
+		this.class.name.split("\\.")[-1] + "_" + numBits + "_" + maxIterations
 	}
 }

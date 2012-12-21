@@ -32,6 +32,8 @@ class ExperimentRunner {
 		def problems = [
 			new OnesMax(numBits : 100, maxIterations : 250)
 		]
+		// It would be nice to collect the total time here and include it in the
+		// output.
 		runExperiment(searchers, problems)
 	}
 

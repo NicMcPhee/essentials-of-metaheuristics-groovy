@@ -3,7 +3,7 @@ package singleStateMethods
 import problems.OnesMax
 import groovy.transform.ToString
 
-@ToString
+
 class SteepestAscentHillClimber {
 	Integer numGradientSamples = 1
 	
@@ -28,5 +28,9 @@ class SteepestAscentHillClimber {
 			}
 		}
 		return s
+	}
+	
+	String toString() {
+		"SAHC_" + numGradientSamples
 	}
 }

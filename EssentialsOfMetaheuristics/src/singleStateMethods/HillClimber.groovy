@@ -3,10 +3,8 @@ package singleStateMethods
 import problems.OnesMax
 import groovy.transform.ToString
 
-@ToString
-class HillClimber {	
-	final name = "HillClimber"
-	
+
+class HillClimber {		
 	// Happily this ended up being an almost direct copy from Sean's book.
 	def maximize(problem) {
 		def s = problem.create()
@@ -20,5 +18,9 @@ class HillClimber {
 			}
 		}
 		return s
-	}	
+	}
+	
+	String toString() {
+		"HC"
+	}
 }
