@@ -1,7 +1,9 @@
 package problems
 
 class LeadingOnes extends BitStringProblem {
-
+	/*
+	 * The fitness here is the length of the longest prefix of all ones.
+	 */
 	def quality = { a ->
 		++evalCount
 		Integer numOnes = 0
