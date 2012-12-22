@@ -9,8 +9,12 @@ in Groovy. My initial goal is to both see what these algorithms look like in Gro
 in Java and, in a few cases, Ruby), and to provide some useful examples for my Evolutionary Computation and Artificial
 Intelligence course.
 
-So far I've finished:
+Searchers I've implemented:
    * A simple implementation of Gradient Ascent for functions of one variable.
    * A simple hill-climber
    * A steepest ascent hill-climber
    * A steepest ascent hill-climber with replacement
+
+Problems I've implemented:
+   * OnesMax
+   * LeadingOnes
