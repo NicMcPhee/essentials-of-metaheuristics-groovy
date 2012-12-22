@@ -9,8 +9,8 @@ import singleStateMethods.SteepestAscentHillClimberWithReplacement
 class ExperimentRunner {
 	
 	static runExperiment(searchers, problems, numRuns = 30) {
-		for (s in searchers) {
-			for (p in problems) {
+		for (p in problems) {
+			for (s in searchers) {
 				for (i in 0..<30) {
 					p.evalCount = 0
 					def result = s.maximize(p)
