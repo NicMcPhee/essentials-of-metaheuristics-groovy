@@ -25,4 +25,8 @@ class Trap extends BitStringProblem {
 			return numZeros
 		}
 	}
+	
+	def terminate = { a, q = quality(a) ->
+		evalCount >= maxIterations || q == a.size() + 1
+	}
 }
