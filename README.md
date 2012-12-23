@@ -18,3 +18,4 @@ Searchers I've implemented:
 Problems I've implemented:
    * OnesMax
    * LeadingOnes
+   * (Binary) Trap
