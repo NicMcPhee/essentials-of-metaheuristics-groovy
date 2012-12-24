@@ -7,6 +7,7 @@ class Sum {
 	Integer numValues = 8
 	Float lowerBound = -5.12
 	Float upperBound = 5.12
+	Float halfMutationRange = 0.5
 
 	def create = { n = numValues ->
 		// Makes an array of n random floats between lowerBound and upperBound
@@ -19,13 +20,9 @@ class Sum {
 	
 	def copy = { a -> a.clone() }
 
-	/*
-	 * I need to look into how Sean handles tweak on floats. For the moment
-	 * I'll just add a random value between -0.5 and +0.5.
-	 */
 	def tweak = { a ->
-		(0..<a.size()).collect { i ->
-			bound(a[i] + rand.nextFloat() - 0.5)
+		a.collect { v ->
+			bound(v + (2 * rand.nextFloat() - 1) * halfMutationRange)
 		}
 	}
 	
@@ -43,12 +40,7 @@ class Sum {
 	// so we'll negate the result since everything we have maximizes.
 	def quality = { a ->
 		++evalCount
-		Float result = 0;
-		// I bet I can do this with something like collect or inject.
-		for (x in a) {
-			result += x
-		}
-		return -result
+		return a.sum()
 	}
 	
 	def terminate = { a, q = quality(a) ->
