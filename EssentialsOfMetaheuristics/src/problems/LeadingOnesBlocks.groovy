@@ -8,6 +8,7 @@ package problems
  */
 class LeadingOnesBlocks extends BitStringProblem {
 	Integer blockSize
+	def maximalQuality = { (int) (numBits / blockSize) }
 	
 	def quality = { a ->
 		++evalCount

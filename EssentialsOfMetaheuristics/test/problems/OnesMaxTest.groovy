@@ -59,7 +59,7 @@ class OnesMaxTest extends Specification {
 	
 	def "terminates when all ones"() {
 		expect:
-		onesMax.terminate([1] * 100)
+		onesMax.terminate([1] * NUM_BITS)
 	}
 	
 	def "terminates when exceeds max evals, quality computed by terminate"() {
@@ -117,20 +117,15 @@ class OnesMaxTest extends Specification {
 	def "tweak mutates correctly and only when appropriate"() {
 		given:
 		def a = [1, 0, 1, 0, 0, 0, 0, 1]
-		def shouldMutate = [0, 0, 0, 1, 1, 0, 1, 0]
+		def shouldMutate = [false, false, false, true, true, false, true, false]
 		
 		when:
 		def mutatedBits = onesMax.tweak(a, shouldMutate)
 		
 		then:
 		[a, mutatedBits, shouldMutate].transpose().every { aBit, mBit, s ->
-			(aBit == mBit && s == 0) || (aBit != mBit && s == 1)
+			(aBit == mBit && !s) || (aBit != mBit && s)
 		}
-	}
-	
-	def "terminate when we have all ones"() {
-		expect:
-		onesMax.terminate([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
 	}
 	
 	def "don't terminate when there's a zero"() {

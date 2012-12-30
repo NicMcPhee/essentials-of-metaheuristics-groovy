@@ -25,12 +25,7 @@ class BitStringProblem {
 	 */
 	def tweak = { a, randomBits = null ->
 		if (randomBits == null) {
-			randomBits = (0..<a.size()).collect {
-				// I'm using the common 1/N rule for mutation, i.e.,
-				// have the mutation probability be 1/N where N is the
-				// length of the bit string.
-				rand.nextInt(a.size()) == 0
-			}
+			randomBits = generateRandomBits(a.size())
 		}
 		(0..<a.size()).collect { i ->
 			if (randomBits[i]) {
@@ -40,9 +35,19 @@ class BitStringProblem {
 			}
 		}
 	}
+
+	def generateRandomBits(Integer numBits) {
+		def randomBits = (0..<numBits).collect {
+				// I'm using the common 1/N rule for mutation, i.e.,
+				// have the mutation probability be 1/N where N is the
+				// length of the bit string.
+				rand.nextInt(numBits) == 0
+			}
+		return randomBits
+	}
 	
 	def terminate = { a, q = quality(a) ->
-		evalCount >= maxIterations || q == a.size()
+		evalCount >= maxIterations || q == maximalQuality()
 	}
 	
 	String toString() {

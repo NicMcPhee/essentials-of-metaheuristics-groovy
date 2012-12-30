@@ -4,6 +4,8 @@ import groovy.transform.ToString
 
 
 class Trap extends BitStringProblem {
+	def maximalQuality = { numBits + 1 }
+
 	def create = { n = numBits ->
 		// Makes an array of random bits.
 		def result = []
@@ -24,9 +26,5 @@ class Trap extends BitStringProblem {
 		} else {
 			return numZeros
 		}
-	}
-	
-	def terminate = { a, q = quality(a) ->
-		evalCount >= maxIterations || q == a.size() + 1
-	}
+	}	
 }
