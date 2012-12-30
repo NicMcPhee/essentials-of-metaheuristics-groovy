@@ -15,7 +15,13 @@ Searchers I've implemented:
    * A steepest ascent hill-climber
    * A steepest ascent hill-climber with replacement
 
-Problems I've implemented:
+Bit-string problems I've implemented:
    * OnesMax
    * LeadingOnes
+   * LeadingOnesBlocks
    * (Binary) Trap
+   * HIFF (Hierarchical If-and-only_if)
+
+Real-valued vector problmes I've implemented:
+   * Sum
+   * Rastrigin
