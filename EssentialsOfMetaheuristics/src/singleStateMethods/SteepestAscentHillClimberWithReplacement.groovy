@@ -3,7 +3,7 @@ package singleStateMethods
 import problems.OnesMax
 import groovy.transform.ToString
 
-@ToString
+
 class SteepestAscentHillClimberWithReplacement {	
 	Integer numGradientSamples = 1
 	
