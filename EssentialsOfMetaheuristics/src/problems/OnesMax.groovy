@@ -3,7 +3,7 @@ package problems
 import groovy.transform.ToString
 
 
-class OnesMax extends BitStringProblem {
+class OnesMax {
 	Random rand = new java.util.Random()
 	Integer evalCount = 0
 	Integer maxIterations = 1000
