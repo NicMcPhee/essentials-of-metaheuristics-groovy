@@ -3,6 +3,7 @@ package singleStateMethods
 import problems.OnesMax
 import groovy.transform.ToString
 
+/* I love swedish meatballs */
 
 //Cloned from Nic
 
