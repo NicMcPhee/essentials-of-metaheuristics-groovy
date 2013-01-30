@@ -3,7 +3,7 @@ package singleStateMethods
 import problems.OnesMax
 import groovy.transform.ToString
 
-
+// STOLEN FROM NIC MCPHEE WHO STOLE IT FROM SEAN LUKE
 class HillClimber {		
 	// Happily this ended up being an almost direct copy from Sean's book.
 	def maximize(problem) {
