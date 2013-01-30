@@ -3,6 +3,7 @@ package singleStateMethods
 import problems.OnesMax
 import groovy.transform.ToString
 
+/* I love swedish meatballs */
 
 class HillClimber {		
 	// Happily this ended up being an almost direct copy from Sean's book.
