@@ -19,7 +19,7 @@ class HillClimber {
 		}
 		return s
 	}
-	
+	// clowns 
 	String toString() {
 		"HC"
 	}
