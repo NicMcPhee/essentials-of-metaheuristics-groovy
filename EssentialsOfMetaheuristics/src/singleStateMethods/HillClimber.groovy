@@ -4,6 +4,8 @@ import problems.OnesMax
 import groovy.transform.ToString
 
 
+//Cloned from Nic
+
 class HillClimber {		
 	// Happily this ended up being an almost direct copy from Sean's book.
 	def maximize(problem) {
