@@ -8,7 +8,7 @@ import groovy.transform.ToString
 //Cloned from Nic
 
 class HillClimber {		
-	// Happily this ended up being an almost direct copy from Sean's book.
+	// Happily this ended up being an almost direct copy from Sean's book. And look! Changes!
 	def maximize(problem) {
 		def s = problem.create()
 		def sQuality = problem.quality(s)
