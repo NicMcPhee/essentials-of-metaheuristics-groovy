@@ -3,14 +3,28 @@ package problems
 class BitStringProblem {
 	protected rand = new java.util.Random()
 	Integer evalCount = 0
+	Integer intermediateEvalCount = 0
 	Integer maxIterations = 1000
 	Integer numBits = 1000
+	
+	def timeDistribution = {
+		return [250, 250, 250, 250]
+	}
+	
+	def setTime(intervals){
+		intermediateEvalCount=0
+		return intervals[0]
+	}
+	
+	def intermediateTerminate(time){
+		return intermediateEvalCount<time
+	}
 
 	def create = { n = numBits ->
 		// Makes an array of n zeros.
 		[0]*n
 	}
-	
+
 	def copy = { a -> a.clone() }
 
 	/*
@@ -38,18 +52,53 @@ class BitStringProblem {
 
 	def generateRandomBits(Integer numBits) {
 		def randomBits = (0..<numBits).collect {
-				// I'm using the common 1/N rule for mutation, i.e.,
-				// have the mutation probability be 1/N where N is the
-				// length of the bit string.
-				rand.nextInt(numBits) == 0
-			}
+			// I'm using the common 1/N rule for mutation, i.e.,
+			// have the mutation probability be 1/N where N is the
+			// length of the bit string.
+			rand.nextInt(numBits) == 0
+		}
 		return randomBits
 	}
-	
+
+	def generateRandomBitsForPerturb(Integer numBits) {
+		def randomBits = (0..<numBits).collect {
+			// I'm using the common 1/N rule for mutation, i.e.,
+			// have the mutation probability be 1/N where N is the
+			// length of the bit string.
+			rand.nextInt((int)numBits/4) == 0	
+		}
+		return randomBits
+	}
+
+	def perturb = { a, randomBits = null ->
+		if (randomBits == null) {
+			randomBits = generateRandomBitsForPerturb(a.size())
+		}
+		(0..<a.size()).collect { i ->
+			if (randomBits[i]) {
+				1-a[i]
+			} else {
+				a[i]
+			}
+		}
+	}
+
+	def newHomeBase(currentHome, newHome, currentQuality = quality(currentHome), newQuality = quality(newHome)){
+		if(rand.nextInt(2)==0) {
+			return newHome //random walk
+		} else {
+			if(currentQuality > newQuality){
+				return currentHome
+			} else {
+				return newHome
+			}
+		}
+	}
+
 	def terminate = { a, q = quality(a) ->
 		evalCount >= maxIterations || q == maximalQuality()
 	}
-	
+
 	String toString() {
 		this.class.name.split("\\.")[-1] + "_" + numBits + "_" + maxIterations
 	}
