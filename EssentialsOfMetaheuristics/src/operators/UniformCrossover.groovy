@@ -28,7 +28,7 @@ class UniformCrossover {
 				}
 			}
 			
-			System.out.println([new1, new2])
+			//System.out.println([new1, new2])
 			
 			return [new1, new2]
 		} else {
