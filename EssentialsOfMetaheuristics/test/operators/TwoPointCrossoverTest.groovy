@@ -3,7 +3,6 @@ package operators
 import spock.lang.Specification
 
 class TwoPointCrossoverTest extends Specification {
-	//final NUM_BITS = 10
 	def twoPointCrossover = new TwoPointCrossover()
 	
 	def "some descriptive value"() {

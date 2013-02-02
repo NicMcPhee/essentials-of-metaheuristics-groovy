@@ -27,7 +27,7 @@ class TwoPointCrossover {
 			new1 += parent1[c2..parent1.size()-1]
 			new2 += parent2[c2..parent2.size()-1]
 			
-			System.out.println("c1: " + c1 + "\nc2: " + c2 + "\n output: " + [new1, new2]);
+			//System.out.println("c1: " + c1 + "\nc2: " + c2 + "\n output: " + [new1, new2]);
 			
 			return [new1, new2]
 		} else {

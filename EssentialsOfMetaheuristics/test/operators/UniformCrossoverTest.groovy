@@ -3,24 +3,25 @@ package operators
 import spock.lang.Specification
 
 class UniformCrossoverTest extends Specification {
-	//final NUM_BITS = 10
-	def uniformPointCrossover = new UniformCrossover()
+	def uniformCrossover = new UniformCrossover()
 	
 	def "some descriptive value"() {
 		when:
-			def output = uniformPointCrossover.crossover(bitstring1, bitstring2)
+			def output = uniformCrossover.crossover(bitstring1, bitstring2)
 		then:
+			output[0].size() == bitstring1.size()
+			output[0].size() == output[1].size()
+			output[1].size() == bitstring2.size()
+			output[1].size() == output[0].size()
 			output[0].count(0) == output[1].count(1)
 			output[0].count(1) == output[1].count(0)
 			output[1].count(0) == output[0].count(1)
 			output[1].count(1) == output[0].count(0)
 			output[0].indexOf(1) == output[1].indexOf(0)
 			output[1].indexOf(0) == output[0].indexOf(1)
-			output[0].size() == output[1].size()
-			output[0].size() == bitstring1.size()
 		where:
-			bitstring1 << [[1, 1, 1, 1]]
-			bitstring2 << [[0, 0, 0, 0]]
+			bitstring1 << [[1, 1, 1, 1, 1, 1, 1, 1]]
+			bitstring2 << [[0, 0, 0, 0, 0, 0, 0, 0]]
 	}
 /* old code left for reference to copy parts from
  * 
