@@ -22,7 +22,8 @@ class SinglePointCrossoverTest extends Specification {
 			bitstring1 << [[1, 1, 1, 1]]
 			bitstring2 << [[0, 0, 0, 0]]
 	}
-/*
+/* old code left for reference to copy parts from
+ * 
 	def "eval count should start at 0"() {
 		expect:
 		onesMax.evalCount == 0

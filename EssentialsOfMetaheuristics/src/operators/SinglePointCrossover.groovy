@@ -1,7 +1,7 @@
 package operators
 
 class SinglePointCrossover {
-	final def RANDOM = new Random();
+	final def RANDOM = new Random()
 	
 	def crossover(parent1, parent2) {
 		if (parent1.size() == parent2.size()) {
@@ -27,11 +27,8 @@ class SinglePointCrossover {
 			new2 = start2 + end1
 			
 			return [new1, new2]
-			
-			//output.addAll(parent1[0..c])
-			//output.addAll(parent2[c..parent2.size()-1])
 		} else {
-			//ERROR
+			throw new Error("Both parents need to be the same size!");
 		}
 	}
 }
