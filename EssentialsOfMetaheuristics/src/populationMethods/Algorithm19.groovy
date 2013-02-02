@@ -20,20 +20,25 @@ class Algorithm19 {
 			}
 			
 			//Calculating the best of individualArr
+			def sortedIndividualArr = []
 			for (ind in individualArr){
 				def indQuality = problem.quality(individual)
 				def index = 0
-				def sortedIndividualArr = []
+				
 				if(sortedIndividualArr.empty){
-					sortedIndividualArr.add(ind)
+					sortedIndividualArr.add(0,ind)
 				} else {
-				   while(indQuality < problem.quality(sortedIndividualArr.get(index))){
+				   while(index <= sortedIndividualArr.size && indQuality < problem.quality(sortedIndividualArr.get(index))){
 						index++
 				   	}
 				   //Left off here, add to the arr at the right index
-				   sortedIndividualArr.add(ind)
+				   sortedIndividualArr.add(index,ind)
 				}
 				
+			}
+			individualArr =[]
+			for (i in 0..numParents){
+				individualArr.add(sortedIndividualArr.get(i))
 			}
 			
 		}
