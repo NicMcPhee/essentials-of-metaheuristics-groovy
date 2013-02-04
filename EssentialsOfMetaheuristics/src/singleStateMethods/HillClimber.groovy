@@ -8,6 +8,8 @@ import groovy.transform.ToString
 //Cloned from Nic
 
 // CLONED FROM NIC!
+//This is a clone of Nic's files
+
 class HillClimber {		
 	// Happily this ended up being an almost direct copy from Sean's book. And look! Changes!
 	def maximize(problem) {
