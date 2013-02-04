@@ -1,5 +1,8 @@
 package singleStateMethods
 
+import problems.OnesMax
+import groovy.transform.ToString
+
 class TabuSearch {
     Integer tabuListLength = 10
     Integer numGradientSamples = 1
@@ -9,16 +12,17 @@ class TabuSearch {
         def best = solution
         
         def tabuList = []
-        assert tabuList.size() == tabuListLength
+        tabuList.size() == tabuListLength
         
         tabuList[0] = solution
         
         while (!problem.terminate(solution)) {
-            if(tabuList[9] != null) {
+            if(tabuList[tabuListLength - 1] != null) {
                 tabuList[0] = null
                 for(int i=0; i < tabuListLength-1; i++){
                     tabuList[i] = tabuList[i+1]
                 }
+                
             }
             def r = problem.tweak(problem.copy(solution))
             
