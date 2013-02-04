@@ -13,11 +13,13 @@ class Algorithm19 {
 		
 
 		def best = individualArr[0]
-
-		while(!problem.terminate(best, problem.quality(best))) {
+		def bestQuality = problem.quality(best)
+		
+		while(!problem.terminate(best, bestQuality)) {
 			for (individual in individualArr) {
-				if (problem.quality(individual) > problem.quality(best)) {
+				if (problem.quality(individual) > bestQuality) {
 					best = individual
+					bestQuality = problem.quality(best)
 				}
 			}
 
@@ -39,15 +41,25 @@ class Algorithm19 {
 
 			}
 			individualArr.clear()
-			for (i in 0..numParents){
+			for (i in 0..(numParents - 1)){
 				individualArr.add(sortedIndividualArr.get(i))
 			}
 			
-			for (i in 0..individualArr.size) {
-				for (j in 0..(numChildren / numParents)) {
+//			for(ind in individualArr){
+//				print(ind + ", ")
+//			}
+
+			
+			for (i in 0..individualArr.size()-1) {
+			//	print("i is " + i)
+				for (j in 1..(numChildren / numParents)) {
+				//	print(" and j is " + j)
 					individualArr.add(problem.tweak(problem.copy(individualArr.get(i))))
 					}
+				//println("endloop")
 			}
+			
+			//println(individualArr.size())
 			sortedIndividualArr.clear()
 			
 			
