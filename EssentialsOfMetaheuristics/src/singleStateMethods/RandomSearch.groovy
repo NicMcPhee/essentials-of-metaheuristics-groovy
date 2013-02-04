@@ -16,5 +16,7 @@ class RandomSearch {
         }
         return s
     }
-    
+    String toString() {
+        "RS"
+}
 }
