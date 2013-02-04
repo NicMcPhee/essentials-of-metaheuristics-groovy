@@ -1,7 +1,7 @@
 package populationMethods
 import problems.OnesMax
 
-class Algorithm19 {
+class MuPlusLambdaES {
 	Integer numParents = 2
 	Integer numChildren = 5
 	def maximize(problem){
