@@ -1,7 +1,17 @@
 package populationMethods
 
 class theGeneticAlgorithm {
-	// Our Algorithm takes a Genetic Algorithm, a desired population size, and the number of runs to run
+	/** Our code makes several assumptions:
+	 * The problem has a newRandomIndividual method for creating new random individuals
+	 * The problem has an isIdeal method for checking if our solution is ideal
+	 * Individuals have a method assessFitness which will their fitness
+	 * Individuals have a fitness method which will return their fitness
+	 * Individuals have a copy method
+	 * Either the Individuals or the problem gives us the methods: selectWithReplacement, crossover, and mutate
+	 */
+		
+	
+	// Our Algorithm takes a Genetic Algorithm Problem, a desired population size, and the number of runs to run
 	def geneticAlgorithm(GA, populationSize, numRuns) {
 		def popsize = populationSize //can change if you like
 		
@@ -16,10 +26,10 @@ class theGeneticAlgorithm {
 		def best
 		def count = 0
 		while(GA.isIdeal(best) || (count == numRuns)) {
-			for(def person: startingPopulation) {
-				assessFitness(person)
-				if(best == null || fitness(person) > fitness(best)) {
-					best = person
+			for(def individual: startingPopulation) {
+				individual.assessFitness();
+				if(best == null || individual.getFitness() > best.getFitness()) {
+					best = individual
 				}
 				
 			}
