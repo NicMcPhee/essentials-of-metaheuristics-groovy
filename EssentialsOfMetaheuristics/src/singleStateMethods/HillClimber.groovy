@@ -12,6 +12,7 @@ import groovy.transform.ToString
 // STOLEN FROM NIC MCPHEE WHO STOLE IT FROM SEAN LUKE
 //Hola from Phou
 /*cloned from nic */
+// This is a clone!!!!1
 class HillClimber {		
         //  Happily this ended up being an almost direct copy from Sean's book.
 	def maximize(problem) {
