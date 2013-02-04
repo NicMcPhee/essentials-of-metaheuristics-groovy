@@ -3,22 +3,10 @@ package problems
 class BitStringProblem {
 	protected rand = new java.util.Random()
 	Integer evalCount = 0
-	Integer intermediateEvalCount = 0
 	Integer maxIterations = 1000
 	Integer numBits = 1000
 	
-	def timeDistribution = {
-		return [250, 250, 250, 250]
-	}
-	
-	def setTime(intervals){
-		intermediateEvalCount=0
-		return intervals[0]
-	}
-	
-	def intermediateTerminate(time){
-		return intermediateEvalCount<time
-	}
+
 
 	def create = { n = numBits ->
 		// Makes an array of n zeros.
@@ -87,7 +75,7 @@ class BitStringProblem {
 		if(rand.nextInt(2)==0) {
 			return newHome //random walk
 		} else {
-			if(currentQuality > newQuality){
+			if(currentQuality > newQuality){ //hill climb
 				return currentHome
 			} else {
 				return newHome

@@ -8,7 +8,6 @@ class OnesMax extends BitStringProblem {
 
 	def quality = { a ->
 		++evalCount
-		++intermediateEvalCount
 		a.count(1)
 	}
 }

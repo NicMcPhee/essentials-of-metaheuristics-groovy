@@ -18,7 +18,7 @@ class ExperimentRunner {
 				for (i in 0..<numRuns) {
 					p.evalCount = 0
 					def result = s.maximize(p)
-					println "${s.toString()}\t${p.toString()}\t${p.quality(result)}\t${result}"
+					println "${s.toString()}\t${p.toString()}\t${p.quality(result)}"
 				}
 			}
 		}
