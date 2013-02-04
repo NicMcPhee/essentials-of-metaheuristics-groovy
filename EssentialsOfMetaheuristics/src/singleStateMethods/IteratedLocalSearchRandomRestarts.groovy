@@ -7,20 +7,21 @@ import groovy.transform.ToString
 class IteratedLocalSearchRandomRestarts {
 	def rand=new Random()
 	def intermediateEvalCount = 0
-	
+	def iterationsSinceHomeBaseChange = 0
+
 	def timeDistribution = {
 		return (10..100)
 	}
-	
+
 	def setTime(intervals){
 		intermediateEvalCount=0
 		return intervals[rand.nextInt(timeDistribution().size())]
 	}
-	
+
 	def intermediateTerminate(time){
 		return (intermediateEvalCount >= time)
 	}
-	
+
 	def maximize(problem) {
 		def t = timeDistribution()
 		def s = problem.create()
@@ -44,10 +45,21 @@ class IteratedLocalSearchRandomRestarts {
 				best = s
 				bestQuality=sQuality
 			}
-			home = problem.newHomeBase(home, s, homeQuality, sQuality)
+			home = newHomeBase(home, s, homeQuality, sQuality)
 			s = problem.perturb(home)
 		}
 		return best
+	}
+
+	def newHomeBase(currentHome, newHome, currentQuality = quality(currentHome), newQuality = quality(newHome), timesBeforeChange = 4){
+		if((newQuality > currentQuality) || (iterationsSinceHomeBaseChange >= timesBeforeChange)){ 
+			iterationsSinceHomeBaseChange = 0
+			return newHome
+		} else {
+			++iterationsSinceHomeBaseChange
+			return currentHome
+
+		}
 	}
 
 	String toString() {
