@@ -1,50 +1,52 @@
 package singleStateMethods
 
-import problems.OnesMax
-import groovy.transform.ToString
-
 class TabuSearch {
     Integer tabuListLength = 10
     Integer numGradientSamples = 1
     
     def maximize(problem){
         def solution = problem.create()
+        def solutionQuality = problem.quality(solution)
         def best = solution
+        def bestQuality = solutionQuality
         
         def tabuList = []
-        tabuList.size() == tabuListLength
         
         tabuList[0] = solution
         
-        while (!problem.terminate(solution)) {
+        while (!problem.terminate(solution, solutionQuality)) {
+            def bestSample
+            def bestSampleQuality = Integer.MIN_VALUE
+            
             if(tabuList[tabuListLength - 1] != null) {
-                tabuList[0] = null
-                for(int i=0; i < tabuListLength-1; i++){
-                    tabuList[i] = tabuList[i+1]
-                }
-                
+                tabuList.remove(0)
             }
-            def r = problem.tweak(problem.copy(solution))
             
             numGradientSamples.times{
-                def w = problem.tweak(problem.copy(solution))
-                if( !(assert tabuList.contains(w)) && 
-                    (problem.quality(w) > problem.quality(r) || (assert tabuList.contains(r)))){
-                    r = w
+                def r = problem.tweak(problem.copy(solution))
+                def rQuality = problem.quality(r)
+                
+                if( !(tabuList.contains(rQuality)) && 
+                    (rQuality > bestSampleQuality || (tabuList.contains(r)))){
+                    bestSample = r
+                    bestSampleQuality = rQuality
                 }
             }
             
-            if( !(assert tabuList.contains(r)) && (problem.quality(r) > problem.quality(solution))){
-                solution = r
-                tabuList.add(r)
+            
+            
+            if( !(tabuList.contains(bestSample)) && (bestSampleQuality > solutionQuality)){
+                solution = bestSample
+                tabuList.add(bestSample)
             }
             
-            if(problem.quality(solution) > problem.quality(best)){
+            if(solutionQuality > bestQuality){
                 best = solution
+                bestQuality = solutionQuality
             }
         }
         
-        return best
+        return solution
     }
     
     String toString() {
