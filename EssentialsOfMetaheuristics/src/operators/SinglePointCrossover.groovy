@@ -2,33 +2,21 @@ package operators
 
 class SinglePointCrossover {
 	final def RANDOM = new Random()
-	
-	def crossover(parent1, parent2) {
-		if (parent1.size() == parent2.size()) {
-			def c = RANDOM.nextInt(parent1.size()+1)
-			//System.out.println(c)
-			def start1 = []
-			def start2 = []
-			def end1 = []
-			def end2 = []
-			def new1 = []
-			def new2 = []
-			
-			if (c > 0) {
-				start1 = parent1[0..c-1]
-				start2 = parent2[0..c-1]
-			}
-			if (c < parent1.size()) {
-				end1 = parent1[c..parent1.size()-1]
-				end2 = parent2[c..parent2.size()-1]
-			}
-			
-			new1 = start1 + end2
-			new2 = start2 + end1
-			
-			return [new1, new2]
-		} else {
-			throw new Error("Both parents need to be the same size!");
-		}
+
+	def crossover(parent1, parent2,
+		c = RANDOM.nextInt(parent1.size() + 1)) {
+		
+		System.out.println(c);
+		assert parent1.size() == parent2.size(), 'parents are the wrong size'
+
+		def new1 = []
+		def new2 = []
+
+		new1 += parent1[0 ..< c]
+		new2 += parent2[0 ..< c]
+		new1 += parent2[c ..< parent1.size()]
+		new2 += parent1[c ..< parent2.size()]
+
+		return [new1, new2]
 	}
 }
