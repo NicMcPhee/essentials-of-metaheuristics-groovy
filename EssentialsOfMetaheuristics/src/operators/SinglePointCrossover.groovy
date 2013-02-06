@@ -17,4 +17,8 @@ class SinglePointCrossover {
 
 		return [new1, new2]
 	}
+		
+	String toString() {
+		"SPC"
+	}
 }
