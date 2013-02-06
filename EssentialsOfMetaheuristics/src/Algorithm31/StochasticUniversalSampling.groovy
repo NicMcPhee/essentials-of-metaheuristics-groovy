@@ -2,32 +2,36 @@ package Algorithm31
 import java.util.Random;
 
 class StochasticUniversalSampling {
-    
+
     //population size
-    def n
-    
+    def popSize
+
     //population vector
-    def p 
-    
+    def popVector
+
     //fitness vector (corresponds to individuals in p)
-    def f
-    
+    def fitVector
+
     //global index
     def index = 0
-    
+
     //global value
     def value
-    
+
     //random number generator
     def randomInt = new Random()
-    
+
     //method for shuffling vectors (shuffles both p and f to preserve order)
-    def shuffle(vector1,vector2){
-        def j
-        def l = vector1.length
+    def shuffle(vector1, vector2){
         def i
-        for (i = l; i >= 2; i--){
-            j = randomInt.next(l-i)+i
+
+        def j
+
+        //Length of vector1 and vector2 should be the same since each individual has a corresponding fitness.
+        def vectLength = vector1.length
+
+        for (i = vectLength; i >= 2; i--){
+            j = randomInt.next(vectLength-i)+i
             def temp1 = vector1.i
             vector1.i = vector1.j
             vector1.j = temp1
@@ -35,32 +39,32 @@ class StochasticUniversalSampling {
             vector2.i = vector2.j
             vector2.j = temp2
         }
-        
+
     }
     //main Stochastic Universal Sampling method
-    def sus(n, p, f){
-        for(int b = 0; b < n; b++){
-            shuffle(p,f)
+    def sus(popSize, popVector, fitVector){
+        for(int b = 0; b < popSize; b++){
+            shuffle(popVector,fitVector)
             def allZeros = true
-            for(int i = 0; i <= f.length; i++){
-                if (f[i] != 0){
+            for(int i = 0; i <= fitVector.length; i++){
+                if (fitVector[i] != 0){
                     allZeros = false
-                } 
+                }
             }
             if (allZeros == true){
-                for(int x = 0; x < f.length; x++)
-                f[x]=1
+                for(int x = 0; x < fitVector.length; x++)
+                fitVector[x]=1
             }
-            for (int a = 1; a < f.length; a++){
-                f[a] = f[a] + f[a-1]
+            for (int a = 1; a < fitVector.length; a++){
+                fitVector[a] = fitVector[a] + fitVector[a-1]
             }
-            value = randomInt.next(f[f.length-1]/n)
-        }
-        while (f[index] < value){
+            value = randomInt.next(fitVector[fitVector.length-1]/popSize)
+        } 
+            while (fitVector[index] < value){
             index++
-            value = value + f[f.length-1]/n
-            return p[index]
-        }    
-    }  
-    
+        }
+            value = value + fitVector[fitVector.length-1]/popSize
+            return popVector[index]
+    }
+
 }
