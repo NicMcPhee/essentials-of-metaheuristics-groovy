@@ -59,4 +59,20 @@ class TwoPointCrossoverTest extends Specification {
 				output[0][i] == output[1][i]
 			}
 	}
+	
+	def "Output strings are mirror images of each other"() {
+		given:
+			def bitstring1 = [0, 0, 0, 0]
+			def bitstring2 = [1, 1, 1, 1]
+		when:
+			def output = uniformCrossover.crossover(bitstring1, bitstring2)
+		then:
+			for (i in 0 ..< bitstring1.size()) {
+				if (output[0][i] == 0) {
+					output[1][i] == 1
+				} else {
+					output[1][i] == 0
+				}
+			}
+	}
 }
