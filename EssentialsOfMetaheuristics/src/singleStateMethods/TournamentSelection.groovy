@@ -10,7 +10,7 @@ class TournamentSelection{
     def maximize(problem, population){
         s = population[r.nextInt(population.size())]
         sQuality = problem.quality(s)
-        for(int i=2; i>=t; i++){
+        for(i in 2..t){
             n = population[r.nextInt(population.size())]
             if(problem.quality(n) > sQuality){
                 s = n
@@ -20,6 +20,6 @@ class TournamentSelection{
         return s
     }
     String toString() {
-        "TS" + t
+        "TS_" + t
     }
 }

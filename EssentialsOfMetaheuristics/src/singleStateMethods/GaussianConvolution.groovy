@@ -25,6 +25,6 @@ class GaussianConvolution {
         return v
     }
     String toString() {
-        "GC var: " + var + " p: " + p
+        "GC_var:_" + var + "_p:_" + p
     }
 }
