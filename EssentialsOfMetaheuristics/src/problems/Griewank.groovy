@@ -22,6 +22,8 @@ class Griewank {
         }
         return result
     }
+    
+    def random = create
 
     def copy = { a -> a.clone() }
 

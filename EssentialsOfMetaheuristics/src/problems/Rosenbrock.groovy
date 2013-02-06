@@ -22,6 +22,8 @@ class Rosenbrock {
         }
         return result
     }
+    
+    def random = create
 
     def copy = { a -> a.clone() }
 
