@@ -60,6 +60,6 @@ class MuPlusLambdaES {
 	}
 
 	String toString() {
-		"Algorithm19_" + numParents + "_" + numChildren
+		"MuPlusLambdaES_" + numParents + "_" + numChildren
 	}
 }
