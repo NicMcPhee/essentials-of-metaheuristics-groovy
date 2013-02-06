@@ -5,8 +5,6 @@ class SinglePointCrossover {
 
 	def crossover(parent1, parent2,
 		c = RANDOM.nextInt(parent1.size() + 1)) {
-		
-		System.out.println(c);
 		assert parent1.size() == parent2.size(), 'parents are the wrong size'
 
 		def new1 = []
