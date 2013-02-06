@@ -2,7 +2,7 @@ package populationMethods
 import problems.OnesMax
 import ArrayList
 
-class FitnessValuePair {
+class FitnessValuePair implements Comparable{
 	def value
 	public int fitness
 	public FitnessValuePair(newValue, newFitness){
@@ -10,7 +10,8 @@ class FitnessValuePair {
 		fitness = newFitness
 	}
 	String toString(){
-		"["+value+":"+fitness+"]"
+//		"["+value+":"+fitness+"]"
+		fitness
 	}
 	
 	def getFit(){
@@ -22,10 +23,10 @@ class FitnessValuePair {
 	
 	public int compareTo(pair2) {
 		if(this.fitness > pair2.getFit()){
-			1
+			-1
 		}
 		else if (this.fitness < pair2.getFit()){
-			-1
+			1
 		}
 		else{0}
 	}

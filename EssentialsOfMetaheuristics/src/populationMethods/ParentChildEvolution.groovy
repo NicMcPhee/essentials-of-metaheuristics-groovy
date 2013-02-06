@@ -19,7 +19,9 @@ class ParentChildEvolution {
 		def bestQuality = -1
 		
 		while(!problem.terminate(best, bestQuality)){ //while best is not ideal and we have time
+//			System.out.println("Unsorted: "+childArr)
 			childArr.sort()
+//			System.out.println("Sorted: "+childArr)
 			if (best == null ||  childArr.get(0).getFit() > bestQuality) {
 				best = childArr.get(0).getVal()
 				bestQuality = childArr.get(0).getFit()
