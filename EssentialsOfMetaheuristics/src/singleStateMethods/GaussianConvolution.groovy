@@ -12,11 +12,10 @@ class GaussianConvolution {
 
     def maximize(problem){
         v = problem.create()
-        if (p >= r.nextDouble()) {
-            for(int i = 1; v.size(); i++){
 
+        for(int i = 1; v.size(); i++){
+            if (p >= r.nextDouble()) {
                 n = r.nextGaussian() * var
-
                 while(! ((problem.min() <= v[i] + n) || (v[i]+n <= problem.max())) ){
                     n = r.nextGaussian() * var
                 }
