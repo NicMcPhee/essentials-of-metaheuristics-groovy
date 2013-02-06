@@ -7,7 +7,7 @@ class MuPlusLambdaES {
 	def maximize(problem){
 		def individualArr = []
 
-		for (i in 0..numParents) {
+		for (i in 0..numChildren) {
 			individualArr.add(problem.create())
 		}
 		
