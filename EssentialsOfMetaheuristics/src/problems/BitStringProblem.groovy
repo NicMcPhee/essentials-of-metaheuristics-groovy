@@ -6,15 +6,13 @@ class BitStringProblem {
 	Integer maxIterations = 1000
 	Integer numBits = 1000
 	
-
-
 	def create = { n = numBits ->
 		// Makes an array of n zeros.
 		[0]*n
 	}
 
 	def copy = { a -> a.clone() }
-
+	
 	/*
 	 * Having this take an option array of bits works, but probably isn't
 	 * super efficient, especially for large bit strings, as we need to allocate
@@ -47,7 +45,7 @@ class BitStringProblem {
 		}
 		return randomBits
 	}
-
+	
 	def generateRandomBitsForPerturb(Integer numBits, mutationRate) {
 		def randomBits = (0..<numBits).collect {
 			// I'm using the common 1/N rule for mutation, i.e.,
@@ -74,7 +72,7 @@ class BitStringProblem {
 	def terminate = { a, q = quality(a) ->
 		evalCount >= maxIterations || q == maximalQuality()
 	}
-
+	
 	String toString() {
 		this.class.name.split("\\.")[-1] + "_" + numBits + "_" + maxIterations
 	}
