@@ -7,7 +7,7 @@ class RandomSearch {
     def maximize(problem) {
         def s = problem.random()
         def sQuality = problem.quality(s)
-        while (!terminate(s, bestQuality)) {
+        while (!terminate(s, sQuality)) {
             def r = problem.random()
             if (rQuality > sQuality) {
                 s = r
@@ -18,5 +18,5 @@ class RandomSearch {
     }
     String toString() {
         "RS"
-}
+    }
 }

@@ -19,4 +19,7 @@ class TournamentSelection{
         }
         return s
     }
+    String toString() {
+        "TS" + t
+    }
 }
