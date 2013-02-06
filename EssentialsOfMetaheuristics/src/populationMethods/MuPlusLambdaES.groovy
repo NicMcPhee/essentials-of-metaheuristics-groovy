@@ -45,21 +45,12 @@ class MuPlusLambdaES {
 				individualArr.add(sortedIndividualArr.get(i))
 			}
 			
-//			for(ind in individualArr){
-//				print(ind + ", ")
-//			}
-
-			
 			for (i in 0..individualArr.size()-1) {
-			//	print("i is " + i)
 				for (j in 1..(numChildren / numParents)) {
-				//	print(" and j is " + j)
 					individualArr.add(problem.tweak(problem.copy(individualArr.get(i))))
 					}
-				//println("endloop")
 			}
 			
-			//println(individualArr.size())
 			sortedIndividualArr.clear()
 			
 			
