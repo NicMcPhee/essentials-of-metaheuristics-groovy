@@ -9,70 +9,37 @@ class ParentChildEvolution {
 	Integer children = 1
 
 	def maximize(problem){
-		def child=[];
-		ArrayList childArr = new ArrayList()
+		ArrayList<FitnessValuePair> childArr = new ArrayList()
+		def value
 		for (int i=0; i<children;i++){
-			child = (problem.create()) //a random thing?
-			childArr.add(child)
+			value = problem.create()
+			childArr.add(new FitnessValuePair(value, problem.quality(value)))
 		}
-		System.out.println(childArr)
 		def best = null
 		def bestQuality = -1
-		def childFitnessMap
+		
 		while(!problem.terminate(best, bestQuality)){ //while best is not ideal and we have time
-			childFitnessMap = new TreeMap()
-			for(problemChild in childArr){
-				childFitnessMap.put(problem.quality(problemChild), problemChild)
+			childArr.sort()
+			if (best == null ||  childArr.get(0).getFit() > bestQuality) {
+				best = childArr.get(0).getVal()
+				bestQuality = childArr.get(0).getFit()
 			}
-			System.out.println(childFitnessMap)
-			def allKeys = childFitnessMap.keySet() as List  //sorted in ascending order.
-			System.out.println(allKeys)
-
-			if (best == null ||  allKeys[allKeys.size()-1]> bestQuality) {
-				best = pullElement(childFitnessMap.getAt(allKeys[allKeys.size()-1]))
-				bestQuality = allKeys[allKeys.size()-1]
+			ArrayList parentList = new ArrayList()
+			for(def i = 0; i<parents; i++){
+				parentList.add(childArr.get(i).getVal())
 			}
-			childArr=[]
-			def parentList = getParents(allKeys, childFitnessMap)
+			childArr.clear()
 			for(def j=0; j<parents; j++){
 				for(def i=0; i<children/parents; i++){
-					childArr+= problem.tweak(parentList[j])
+					value = problem.tweak(parentList[j])
+					childArr.add(new FitnessValuePair(value, problem.quality(value)))
 				}
 			}
 		}
 		return best
 	}
 
-	def pullElement(arr, index = 0){
-		if(arr.class.isArray()){
-			arr[index]
-		}
-		else{arr}
-	}
-
-	def getParents(keys, map){
-		def parentList = []
-		def maxParents = 0
-		def whichKey = 1
-		while(maxParents < parents){
-			def nextParent = map.getAt(keys[keys.size()-whichKey])
-			if(nextParent.getClass()== ArrayList){
-				for(def i=0; i<nextParent.size() && i<parents; i++){
-					parentList += nextParent[i]
-					maxParents++
-				}
-			}
-			else{
-				parentList += nextParent
-				maxParents++
-			}
-			whichKey++
-		}
-		System.out.println(parentList)
-		parentList
-	}
-
-	String toString(){
+		String toString(){
 		"(" + parents+","+children+")Evo"
 	}
 }
