@@ -32,12 +32,11 @@ class ExperimentRunner {
 			new SteepestAscentHillClimberWithReplacement(numGradientSamples : 1),
 			new SteepestAscentHillClimberWithReplacement(numGradientSamples : 2),
 			new SteepestAscentHillClimberWithReplacement(numGradientSamples : 4),
-			new SteepestAscentHillClimberWithReplacement(numGradientSamples : 8),
 		]
 		def problems = [
-			new OnesMax(numBits : 10, maxIterations : 10000),
-			new OnesMax(numBits : 100, maxIterations : 10000),
-			new OnesMax(numBits : 1000, maxIterations : 10000),
+			new OnesMax(numBits : 10, maxIterations : 100),
+			new OnesMax(numBits : 100, maxIterations : 100),
+			new OnesMax(numBits : 1000, maxIterations : 100),
 		]
 		runExperiment(searchers, problems)
 	}
