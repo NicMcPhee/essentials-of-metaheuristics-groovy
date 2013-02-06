@@ -3,7 +3,7 @@ package populationMethods
 import java.util.Random
 import EssentialsOfMetaheuristics.singleStateMethods.Crossover
 
-class theGeneticAlgorithm {
+class TheGeneticAlgorithm {
 	// Algorithm 20
 	
 	/** Our code makes several assumptions:
@@ -14,7 +14,7 @@ class theGeneticAlgorithm {
 		
 	
 	// Our Algorithm takes a Genetic Algorithm Problem, a desired population size, and the number of runs to run
-	def geneticAlgorithm(GAP, populationSize, numRuns) {
+	def geneticAlgorithm(GAP, populationSize) {
 		def popsize = populationSize //can change if you like
 		def crossover = new Crossover()
 		
@@ -26,12 +26,12 @@ class theGeneticAlgorithm {
 			startingPopulation.add(toAdd) // Add a new random individual
 		}
 		
-		def best
-		def count = 0
-		while(!GAP.isIdeal(best) && (count != numRuns)) {
+		// Start best as just some random individual
+		def best = GAP.random()
+		while(!terminate(best, GAP.quality(best))) {
 			for(def individual: startingPopulation) {
 				GAP.quality(individual);
-				if(best == null || individual.getFitness() > best.getFitness()) {
+				if(individual.getFitness() > best.getFitness()) {
 					best = individual
 				}
 				
@@ -46,7 +46,6 @@ class theGeneticAlgorithm {
 				endingPopulation.add(GAP.tweak(children[0]), GAP.tweak(children[1]))
 			}
 			startingPopulation = endingPopulation
-			count++
 		}
 		return best
 	}
