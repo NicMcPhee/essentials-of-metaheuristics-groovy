@@ -3,7 +3,10 @@ package singleStateMethods
 import java.util.Random
 
 class HillClimberWithRandomRestarts {
-    def Time = [1, 10, 15, 30, 100]
+    // List of numbers representing the number of times the sample solution will be 
+    // tweaked before the best sample is compared to the best solution. A random number
+    // will be selected from this list.
+    def restartTimeDistro = [1, 10, 15, 30, 100]
     Random rand = new Random()
 
     def maximize(problem) {
@@ -11,12 +14,11 @@ class HillClimberWithRandomRestarts {
         def sQuality = problem.quality(s)
         def best = s
         def bestQuality = sQuality
-
-        
         while (!problem.terminate(s, sQuality)) {
             def bestSample
             def bestSampleQuality = Integer.MIN_VALUE
-            for(int i = 0; i < Time[rand.nextInt(Time.size())]; i++) {
+            def loops = restartTimeDistro[rand.nextInt(restartTimeDistro.size())]
+            for(int i = 0; i < loops; i++) {
                 def r = problem.tweak(problem.copy(s))
                 def rQuality = problem.quality(r)
                 if (rQuality > bestSampleQuality) {
@@ -35,6 +37,11 @@ class HillClimberWithRandomRestarts {
     }
 
     String toString() {
-        "HCWRR_" + Time
+        def distroNoSpaces = ""
+        for(int i = 0; i < restartTimeDistro.size(); i++) {
+            distroNoSpaces += restartTimeDistro[i] + "_"
+        }
+        distroNoSpaces = distroNoSpaces[0..distroNoSpaces.length()-2]
+        "HCWRR_" + distroNoSpaces
     }
 }
