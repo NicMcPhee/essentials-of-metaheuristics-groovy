@@ -1,19 +1,15 @@
 package singleStateMethods
 
-import problems.OnesMax
-import groovy.transform.ToString
-
-
 class Crossovers{
-    Random random = new Random()
-    def onePointCrossover(father, mother){
-        int crossoverPoint = random.nextInt(father.size)
-        def f = father
-        def m = mother
+    static random = new Random()
+	static swap = { x,y ->  x = y; y = x }
+    static onePointCrossover(father, mother){
+        int crossoverPoint = father.size//random.nextInt(father.size)
+        def f = father.clone()
+        def m = mother.clone()
         for(crossoverPoint; crossoverPoint<f.size; crossoverPoint++){
-            def tmp = f[crossoverPoint]
-            f[crossoverPoint] = m[crossoverPoint]
-            m[crossoverPoint] = tmp
+          swap(f[crossoverPoint, m[crossoverPoint]])
+		  
         }
         [f, m]
     }
@@ -21,8 +17,8 @@ class Crossovers{
     def twoPointCrossover(father, mother){
         int crossoverPointMin = random.nextInt(father.size)
         int crossoverPointMax = random.nextInt(mother.size)
-        def f = father
-        def m = mother
+        def f = father.clone()
+        def m = mother.clone()
         if(crossoverPointMin > crossoverPointMax){
             def tmp = crossoverPointMin
             crossoverPointMax = crossoverPointMin
@@ -39,10 +35,10 @@ class Crossovers{
     
     def uniformCrossover(father, mother){
         def probability = 1/father.size
-        def f = father
-        def m = mother
+        def f = father.clone()
+        def m = mother.clone()
         for(i in 1..f.size){
-            if(probability >= random.nextInt(1)){
+            if(probability >= random.nextFloat()){
                 def tmp = f[i]
                 f[i] = m[i]
                 m[i] = tmp

@@ -5,7 +5,7 @@ import spock.lang.Specification
 import singleStateMethods.Crossovers
 
 class CrossoverTests extends Specification {
-    def frequencies(arr){
+    def countOnesAndZeroes(arr){
        def ones = arr.findAll { i -> i == 1}
        def zeroes = arr.findAll { i -> i == 0}
        
@@ -14,6 +14,11 @@ class CrossoverTests extends Specification {
     def father = [1, 0, 1, 0, 1, 0, 1, 0]
     def mother = [0, 1, 0, 1, 0, 1, 0, 1]
 	
+	def "Testing onepoint swap"(){
+		def zeroes = [0, 0, 0, 0, 0]
+		def ones = [1, 1, 1, 1, 1]
+		
+	}
 	def "One point crossover shouldn't change either parent"() {
 		given:
 		def fatherClone = father.clone()
@@ -59,7 +64,7 @@ class CrossoverTests extends Specification {
     def"total number of ones and zeroes should not change"(){
     
         expect:
-        frequencies(father) == frequencies(mother)
+        countOnesAndZeroes(father) == countOnesAndZeroes(mother)
     }
     
     def"One Point Crossovers don't change the total number of ones and zeroes"(){
@@ -68,7 +73,7 @@ class CrossoverTests extends Specification {
        def fchild = children[0]
        def mchild = children[1]       
        expect:
-       frequencies(fchild+mchild) == frequencies(father+mother)            
+       countOnesAndZeroes(fchild+mchild) == countOnesAndZeroes(father+mother)            
     }
     def"Two Point Crossovers don't change the total number of ones and zeroes"(){
         def crossovers = new Crossovers()
@@ -76,7 +81,7 @@ class CrossoverTests extends Specification {
         def fchild = children[0]
         def mchild = children[1]
         expect:
-        frequencies(fchild+mchild) == frequencies(father+mother)
+        countOnesAndZeroes(fchild+mchild) == countOnesAndZeroes(father+mother)
      }
     def"Uniform Crossovers don't change the total number of ones and zeroes"(){
         def crossovers = new Crossovers()
@@ -84,7 +89,7 @@ class CrossoverTests extends Specification {
         def fchild = children[0]
         def mchild = children[1]
         expect:
-        frequencies(fchild+mchild) == frequencies(father+mother)
+        countOnesAndZeroes(fchild+mchild) == countOnesAndZeroes(father+mother)
      }
     
 }
