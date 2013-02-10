@@ -1,6 +1,9 @@
 package problems
 
-class Sum {
+import java.util.Random;
+
+class Schwefel {
+
     protected Random rand = new java.util.Random()
     Integer evalCount = 0
     Integer maxIterations = 1000
@@ -9,15 +12,17 @@ class Sum {
     Float upperBound = 5.12
     Float halfMutationRange = 0.5
 
-    def create = { n = numValues ->
+    def create = { n = numValues, values = null ->
         // Makes an array of n random floats between lowerBound and upperBound
+        numValues = n
+        if (values != null) return values
         def result = []
         for (i in 0..<n) {
             result << rand.nextFloat() * (upperBound - lowerBound) + lowerBound
         }
         return result
     }
-
+    
     def random = create
 
     def copy = { a -> a.clone() }
@@ -38,11 +43,9 @@ class Sum {
         }
     }
 
-    // Minimize f(<x_i>) = 10n + sum { x_i^2 - 10 cos(2 \pi x_i) }, x \in [-5.12, 5.12],
-    // so we'll negate the result since everything we have maximizes.
     def quality = { a ->
         ++evalCount
-        return a.sum()
+        return a.sum({i -> -i*Math.sin(Math.pow(Math.abs(i), 0.5))})
     }
 
     def terminate = { a, q = quality(a) ->
@@ -52,4 +55,8 @@ class Sum {
     String toString() {
         this.class.name.split("\\.")[-1] + "_" + numValues + "_" + maxIterations
     }
+
+
+
+
 }

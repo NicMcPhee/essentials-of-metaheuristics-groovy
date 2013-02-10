@@ -1,23 +1,28 @@
 package problems
 
-class Sum {
+import java.util.Random;
+
+class Rosenbrock {
+
     protected Random rand = new java.util.Random()
     Integer evalCount = 0
     Integer maxIterations = 1000
     Integer numValues = 8
-    Float lowerBound = -5.12
-    Float upperBound = 5.12
+    Float lowerBound = -2.048
+    Float upperBound = 2.048
     Float halfMutationRange = 0.5
 
-    def create = { n = numValues ->
+    def create = { n = numValues, values = null ->
         // Makes an array of n random floats between lowerBound and upperBound
+        numValues = n
+        if (values != null) return values
         def result = []
         for (i in 0..<n) {
             result << rand.nextFloat() * (upperBound - lowerBound) + lowerBound
         }
         return result
     }
-
+    
     def random = create
 
     def copy = { a -> a.clone() }
@@ -38,11 +43,15 @@ class Sum {
         }
     }
 
-    // Minimize f(<x_i>) = 10n + sum { x_i^2 - 10 cos(2 \pi x_i) }, x \in [-5.12, 5.12],
-    // so we'll negate the result since everything we have maximizes.
+    //We are trying to maximize the sum of the floor of all of the vector elements
+    //plus 6 * vectorSize
     def quality = { a ->
         ++evalCount
-        return a.sum()
+        def output = 0
+        for (int i = 0; i < a.size() - 1; i++) {
+            output += Math.pow(1-a[i], 2) + 100*Math.pow(a[i+1] - Math.pow(a[i], 2), 2)
+        }
+        return output
     }
 
     def terminate = { a, q = quality(a) ->
@@ -52,4 +61,8 @@ class Sum {
     String toString() {
         this.class.name.split("\\.")[-1] + "_" + numValues + "_" + maxIterations
     }
+
+
+
+
 }
