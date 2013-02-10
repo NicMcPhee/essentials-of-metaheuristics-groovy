@@ -62,7 +62,7 @@ class SinglePointCrossoverTest extends Specification {
 			def bitstring1 = [0, 0, 0, 0]
 			def bitstring2 = [1, 1, 1, 1]
 		when:
-			def output = uniformCrossover.crossover(bitstring1, bitstring2)
+			def output = singlePointCrossover.crossover(bitstring1, bitstring2)
 		then:
 			for (i in 0 ..< bitstring1.size()) {
 				if (output[0][i] == 0) {
