@@ -1,6 +1,5 @@
 package singleStateMethods
 
-import problems.OnesMax
 import groovy.transform.ToString
 
 class RandomSearch {
@@ -9,6 +8,7 @@ class RandomSearch {
         def sQuality = problem.quality(s)
         while (!terminate(s, sQuality)) {
             def r = problem.random()
+            def rQuality = problem.quality(r)
             if (rQuality > sQuality) {
                 s = r
                 sQuality = rQuality

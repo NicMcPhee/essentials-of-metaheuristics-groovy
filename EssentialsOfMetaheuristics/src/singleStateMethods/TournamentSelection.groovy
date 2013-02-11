@@ -1,25 +1,25 @@
 package singleStateMethods
 
-import problems.OnesMax
 import groovy.transform.ToString
 import java.util.Random
 
 class TournamentSelection{
-    Integer t = 2
+    Integer tournamentSize = 2
     Random r = new Random()
-    def maximize(problem, population){
+    def select(problem, population){
         s = population[r.nextInt(population.size())]
         sQuality = problem.quality(s)
-        for(i in 2..t){
+        for(i in 2..tournamentSize){
             n = population[r.nextInt(population.size())]
-            if(problem.quality(n) > sQuality){
+            nQuality = problem.quality(n)
+            if(nQuality > sQuality){
                 s = n
-                sQuality = problem.quality(n)
+                sQuality = nQuality
             }
         }
         return s
     }
     String toString() {
-        "TS_" + t
+        "TS_" + tournamentSize
     }
 }

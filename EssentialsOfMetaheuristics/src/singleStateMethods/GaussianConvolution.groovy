@@ -1,28 +1,27 @@
 package singleStateMethods
 
-import problems.OnesMax
 import groovy.transform.ToString
 import java.util.Random
 
 class GaussianConvolution {
 
-    Integer p = 1
-    Integer var = problem.variance()
+    float p = 1
+    Integer var
     Random r = new Random()
 
-    def maximize(problem){
-        v = problem.create()
-
-        for(int i = 1; v.size(); i++){
+    def mutate(problem, v) {
+        vCopy = v.clone()
+        var = problem.variance()
+        vCopy.size().times { i ->
             if (p >= r.nextDouble()) {
                 n = r.nextGaussian() * var
-                while(! ((problem.min() <= v[i] + n) || (v[i]+n <= problem.max())) ){
+                while(! ((problem.min() <= vCopy[i] + n) && (vCopy[i]+n <= problem.max())) ){
                     n = r.nextGaussian() * var
                 }
-                v[i] += n
+                vCopy[i] += n
             }
         }
-        return v
+        return vCopy
     }
     String toString() {
         "GC_var:_" + var + "_p:_" + p
