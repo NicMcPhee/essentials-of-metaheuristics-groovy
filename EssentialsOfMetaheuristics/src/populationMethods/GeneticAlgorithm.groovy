@@ -13,7 +13,7 @@ class GeneticAlgorithm {
 		def selector = selectionMethod
 		
 		// Population
-		def startingPopulation = []
+		def startingPopulation = [] as Set
 		
 		for(i in 0..popsize){
 			def toAdd = problem.random()
@@ -32,7 +32,7 @@ class GeneticAlgorithm {
 				
 			}
 			
-			def endingPopulation = []
+			def endingPopulation = [] as Set
 			
 			for(i in 0..(popsize/2)) {
 				def parentA = selector.maximize(problem, startingPopulation)
