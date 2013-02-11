@@ -7,14 +7,14 @@ class MuPlusLambdaES {
 	def maximize(problem){
 		def individualArr = []
 
-		times.numChildren {
+		numChildren.times {
 			individualArr.add(problem.create())
 		}
-		
+
 
 		def best = individualArr[0]
 		def bestQuality = problem.quality(best)
-		
+
 		while(!problem.terminate(best, bestQuality)) {
 			for (individual in individualArr) {
 				if (problem.quality(individual) > bestQuality) {
@@ -24,33 +24,25 @@ class MuPlusLambdaES {
 			}
 
 			//Calculating the top numParent best of individualArr
-			def sortedIndividualArr = []
-			for (ind in individualArr){
-				def indQuality = problem.quality(ind)
-				def index = 0
-
-				if(sortedIndividualArr.empty){
-					sortedIndividualArr.add(0,ind)
-				} else {
-					while(index < sortedIndividualArr.size && indQuality < problem.quality(sortedIndividualArr.get(index))){
-						index++
-					}
-					sortedIndividualArr.add(index,ind)
-				}
-
-			}
 			
-			individualArr.clear()
-			individualArr = sortedIndividualArr[0..<numParents]
+			println("before sort")
+			println(individualArr.sort{problem.quality(it)}.reverse())
+			println("after sort")
 			
-			for (i in 0..<numParents) {
-				for (j in 0..<(numChildren / numParents)) {
+//			for (i in 0..(numParents - 1)){
+//				individualArr.add(sortedIndividualArr.get(i))
+//			}
+
+			//find out how to cut array after the numParent-th element
+			
+			for (i in 0..individualArr.size()-1) {
+				for (j in 1..(numChildren / numParents)) {
 					individualArr.add(problem.tweak(problem.copy(individualArr.get(i))))
-					}
+				}
 			}
-			
+
 			sortedIndividualArr.clear()
-			
+
 		}
 		return best
 	}
