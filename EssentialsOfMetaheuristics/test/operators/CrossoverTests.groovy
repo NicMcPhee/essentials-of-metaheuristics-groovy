@@ -17,9 +17,9 @@ class CrossoverTests extends Specification {
 	def "Testing onepoint swap"(){
 		given:
 		def zeroes = [0, 0, 0, 0, 0]
-		def ones = [1, 1, 1, 1, 1]
+		def onez = [1, 1, 1, 1, 1]
 		when:
-		def children = Crossovers.onePointCrossover(zeroes, ones, 1)
+		def children = Crossovers.onePointCrossover(zeroes, onez, 1)
 		
 		then:
 		children == [[0, 1, 1, 1, 1], [1, 0, 0, 0, 0]]
