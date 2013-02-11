@@ -12,7 +12,7 @@ class Rastrigin {
 	def create = { n = numValues ->
 		// Makes an array of n random floats between lowerBound and upperBound
 		def result = []
-		for (i in 0..<n) {
+		n.times {
 			result << rand.nextFloat() * (upperBound - lowerBound) + lowerBound
 		}
 		return result
