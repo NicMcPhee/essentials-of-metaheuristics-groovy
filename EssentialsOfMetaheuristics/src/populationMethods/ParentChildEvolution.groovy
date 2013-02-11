@@ -11,7 +11,7 @@ class ParentChildEvolution {
 	def maximize(problem){
 		def childArr = []
 		def value
-		for (int i=0; i<numChildren;i++){
+		numChildren.times{
 			value = problem.create()
 			childArr.add(new FitnessValuePair(value, problem.quality(value)))
 		}
@@ -29,9 +29,9 @@ class ParentChildEvolution {
 				parentList.add(childArr[i].getVal())
 			}
 			childArr= []
-			for(def j=0; j<numParents; j++){
-				for(def i=0; i<numChildren/numParents; i++){
-					value = problem.tweak(parentList[j])
+			for(parent in parentList){
+				(numChildren/numParents).times{
+					value = problem.tweak(parent)
 					childArr.add(new FitnessValuePair(value, problem.quality(value)))
 				}
 			}
