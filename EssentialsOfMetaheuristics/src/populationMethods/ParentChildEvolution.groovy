@@ -2,39 +2,37 @@ package populationMethods
 
 import problems.OnesMax
 import groovy.transform.ToString
-import java.util.ArrayList
 
 class ParentChildEvolution {
-	Integer parents = 1
-	Integer children = 1
+	Integer numParents = 1
+	Integer numChildren = 1
 
 	def maximize(problem){
-		ArrayList<FitnessValuePair> childArr = new ArrayList()
-		def value
-		for (int i=0; i<children;i++){
-			value = problem.create()
-			childArr.add(new FitnessValuePair(value, problem.quality(value)))
+		assert numParents > 0 && numChilren >0, "numParents and numChildren must be positive"
+		assert numChildren%numParents == 0, "numChildren must be a multiple of numParents" 
+		def childArr = [] //will be an array of [fitness,value] pairs
+		numChildren.times{
+			def candidateSolution = problem.create()
+			childArr.add(new FitnessValuePair(candidateSolution, problem.quality(candidateSolution)))
 		}
-		def best = null
-		def bestQuality = -1
+		def best = childArr[0].getVal()
+		def bestQuality = childArr[0].getFit()
 		
 		while(!problem.terminate(best, bestQuality)){ //while best is not ideal and we have time
-//			System.out.println("Unsorted: "+childArr)
 			childArr.sort()
-//			System.out.println("Sorted: "+childArr)
-			if (best == null ||  childArr.get(0).getFit() > bestQuality) {
-				best = childArr.get(0).getVal()
-				bestQuality = childArr.get(0).getFit()
+			if (childArr[0].getFit() > bestQuality) {
+				best = childArr[0].getVal()
+				bestQuality = childArr[0].getFit()
 			}
 			ArrayList parentList = new ArrayList()
-			for(def i = 0; i<parents; i++){
-				parentList.add(childArr.get(i).getVal())
+			for(def i = 0; i<numParents; i++){
+				parentList.add(childArr[i].getVal())
 			}
-			childArr.clear()
-			for(def j=0; j<parents; j++){
-				for(def i=0; i<children/parents; i++){
-					value = problem.tweak(parentList[j])
-					childArr.add(new FitnessValuePair(value, problem.quality(value)))
+			childArr= []
+			for(parent in parentList){
+				(numChildren/numParents).times{
+					def nextSolution = problem.tweak(parent)
+					childArr.add(new FitnessValuePair(nextSolution, problem.quality(nextSolution)))
 				}
 			}
 		}
@@ -42,6 +40,6 @@ class ParentChildEvolution {
 	}
 
 		String toString(){
-		"(" + parents+","+children+")Evo"
+		"(" + numParents+","+numChildren+")Evo"
 	}
 }

@@ -1,17 +1,13 @@
 package populationMethods
-import problems.OnesMax
-import ArrayList
 
+
+//consider using @Immutable and removing the private fields
 class FitnessValuePair implements Comparable{
-	def value
-	public int fitness
+	private def value
+	private def fitness
 	public FitnessValuePair(newValue, newFitness){
 		value = newValue
 		fitness = newFitness
-	}
-	String toString(){
-//		"["+value+":"+fitness+"]"
-		fitness
 	}
 	
 	def getFit(){
@@ -21,6 +17,8 @@ class FitnessValuePair implements Comparable{
 		value
 	}
 	
+	
+	//This is set so that default sort methods will return the pairs sorted in descending order by fitness
 	public int compareTo(pair2) {
 		if(this.fitness > pair2.getFit()){
 			-1
