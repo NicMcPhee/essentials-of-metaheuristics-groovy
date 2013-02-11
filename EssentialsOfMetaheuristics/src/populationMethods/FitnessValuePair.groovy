@@ -2,32 +2,20 @@ package populationMethods
 
 
 //consider using @Immutable and removing the private fields
-class FitnessValuePair implements Comparable{
-	private def value
-	private def fitness
-	public FitnessValuePair(newValue, newFitness){
-		value = newValue
-		fitness = newFitness
-	}
-	
-	def getFit(){
-		fitness
-	}
-	def getVal(){
-		value
-	}
-	
-	
+@Immutable class FitnessValuePair implements Comparable{
+	protected def value
+	protected def fitness
+
 	//This is set so that default sort methods will return the pairs sorted in descending order by fitness
 	public int compareTo(pair2) {
-		if(this.fitness > pair2.getFit()){
+		if(this.fitness > pair2.fitness){
 			-1
 		}
-		else if (this.fitness < pair2.getFit()){
+		else if (this.fitness < pair2.fitness){
 			1
 		}
 		else{0}
 	}
-	
-	
+
+
 }
