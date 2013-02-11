@@ -2,25 +2,24 @@ package populationMethods
 
 import problems.OnesMax
 import groovy.transform.ToString
-import java.util.ArrayList
 
 class ParentChildEvolution {
 	Integer numParents = 1
 	Integer numChildren = 1
 
 	def maximize(problem){
-		def childArr = []
+		def childArr = [] //will be an array of [value,fitness] pairs
 		def value
 		numChildren.times{
 			value = problem.create()
 			childArr.add(new FitnessValuePair(value, problem.quality(value)))
 		}
-		def best = null
-		def bestQuality = -1
+		def best = childArr[0].getVal()
+		def bestQuality = childArr[0].getFit()
 		
 		while(!problem.terminate(best, bestQuality)){ //while best is not ideal and we have time
 			childArr.sort()
-			if (best == null ||  childArr[0].getFit() > bestQuality) {
+			if (childArr[0].getFit() > bestQuality) {
 				best = childArr[0].getVal()
 				bestQuality = childArr[0].getFit()
 			}
