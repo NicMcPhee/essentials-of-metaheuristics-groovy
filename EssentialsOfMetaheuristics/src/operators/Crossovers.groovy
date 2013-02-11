@@ -8,7 +8,8 @@ class Crossovers{
 		def m = []
 		(f, m) = [
 			father[0..<crossoverPoint] + mother[crossoverPoint..<mother.size],
-			mother[0..<crossoverPoint] + father[crossoverPoint..<father.size]]
+			mother[0..<crossoverPoint] + father[crossoverPoint..<father.size]
+		]
 	}
 
 	static twoPointCrossover(father, mother,
@@ -26,17 +27,18 @@ class Crossovers{
 				]
 	}
 
-	def uniformCrossover(father, mother){
-		def probability = 1/father.size
-		def f = father.clone()
-		def m = mother.clone()
-		for(i in 1..f.size-1){
+	static uniformCrossover(father, mother, probability = 1/father.size){
+		def f = []
+		def m = []
+		for(i in 0..father.size){
 			if(probability >= random.nextFloat()){
-				def tmp = f[i]
-				f[i] = m[i]
-				m[i] = tmp
+				f += mother[i]
+				m += father[i]
+			} else {
+				f += father[i]
+				m += mother[i]
 			}
 		}
-		[f, m]
+		[f,m]
 	}
 }
