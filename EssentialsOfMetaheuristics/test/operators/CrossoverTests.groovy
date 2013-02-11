@@ -1,4 +1,4 @@
-package singleStateMethods
+package operators
 
 import static org.junit.Assert.*
 import spock.lang.Specification
