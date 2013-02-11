@@ -23,7 +23,7 @@ class MuPlusLambdaES {
 				}
 			}
 
-			//Calculating the best of individualArr
+			//Calculating the top numParent best of individualArr
 			def sortedIndividualArr = []
 			for (ind in individualArr){
 				def indQuality = problem.quality(ind)
@@ -35,26 +35,22 @@ class MuPlusLambdaES {
 					while(index < sortedIndividualArr.size && indQuality < problem.quality(sortedIndividualArr.get(index))){
 						index++
 					}
-					//Left off here, add to the arr at the right index
 					sortedIndividualArr.add(index,ind)
 				}
 
 			}
+			
 			individualArr.clear()
+			individualArr = sortedIndividualArr[0..<numParents]
 			
-				individualArr = sortedIndividualArr[0..<numParents]
-			
-			
-			for (i in 0..individualArr.size()-1) {
-				for (j in 1..(numChildren / numParents)) {
+			for (i in 0..<numParents) {
+				for (j in 0..<(numChildren / numParents)) {
 					individualArr.add(problem.tweak(problem.copy(individualArr.get(i))))
 					}
 			}
 			
 			sortedIndividualArr.clear()
 			
-			
-
 		}
 		return best
 	}
