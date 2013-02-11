@@ -8,9 +8,7 @@ class IteratedLocalSearchRandomRestarts {
 	def intermediateEvalCount = 0
 	def iterationsSinceHomeBaseChange = 0
 
-	def timeDistribution = {
-		return (10..100)
-	}
+	def timeDistribution = { (10..100) }
 
 	def setTime(intervals){
 		intermediateEvalCount=0
@@ -22,7 +20,7 @@ class IteratedLocalSearchRandomRestarts {
 	}
 
 	def maximize(problem) {
-		def t = timeDistribution()
+		def timeDist = timeDistribution()
 		def s = problem.create()
 		def sQuality = problem.quality(s)
 		def home = s
@@ -30,15 +28,12 @@ class IteratedLocalSearchRandomRestarts {
 		def best = s
 		def bestQuality = sQuality
 		
-		def time
-		def r
-		def rQuality
 		while (!problem.terminate(s, sQuality)) {
-			time = setTime(t)
+			def time = setTime(timeDist)
 			while(!intermediateTerminate(time) && !problem.terminate(s, sQuality)){ //should this be based on s or best?
 				++intermediateEvalCount
-				r = problem.tweak(problem.copy(s))
-				rQuality = problem.quality(r)
+				def r = problem.tweak(problem.copy(s))
+				def rQuality = problem.quality(r)
 				if (rQuality > sQuality) {
 					s = r
 					sQuality = rQuality
