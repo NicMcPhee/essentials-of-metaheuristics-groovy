@@ -8,11 +8,12 @@ class ParentChildEvolution {
 	Integer numChildren = 1
 
 	def maximize(problem){
-		def childArr = [] //will be an array of [value,fitness] pairs
-		def value
+		assert numParents > 0 && numChilren >0, "numParents and numChildren must be positive"
+		assert numChildren%numParents == 0, "numChildren must be a multiple of numParents" 
+		def childArr = [] //will be an array of [fitness,value] pairs
 		numChildren.times{
-			value = problem.create()
-			childArr.add(new FitnessValuePair(value, problem.quality(value)))
+			def candidateSolution = problem.create()
+			childArr.add(new FitnessValuePair(candidateSolution, problem.quality(candidateSolution)))
 		}
 		def best = childArr[0].getVal()
 		def bestQuality = childArr[0].getFit()
@@ -30,8 +31,8 @@ class ParentChildEvolution {
 			childArr= []
 			for(parent in parentList){
 				(numChildren/numParents).times{
-					value = problem.tweak(parent)
-					childArr.add(new FitnessValuePair(value, problem.quality(value)))
+					def nextSolution = problem.tweak(parent)
+					childArr.add(new FitnessValuePair(nextSolution, problem.quality(nextSolution)))
 				}
 			}
 		}
