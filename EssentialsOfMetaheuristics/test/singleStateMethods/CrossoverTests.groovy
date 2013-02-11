@@ -2,7 +2,7 @@ package singleStateMethods
 
 import static org.junit.Assert.*
 import spock.lang.Specification
-import singleStateMethods.Crossovers
+import operators.Crossovers
 
 class CrossoverTests extends Specification {
     def countOnesAndZeroes(arr){
@@ -15,8 +15,14 @@ class CrossoverTests extends Specification {
     def mother = [0, 1, 0, 1, 0, 1, 0, 1]
 	
 	def "Testing onepoint swap"(){
+		given:
 		def zeroes = [0, 0, 0, 0, 0]
 		def ones = [1, 1, 1, 1, 1]
+		when:
+		def children = Crossovers.onePointCrossover(zeroes, ones, 1)
+		
+		then:
+		children == [[0, 1, 1, 1, 1], [1, 0, 0, 0, 0]]
 		
 	}
 	def "One point crossover shouldn't change either parent"() {
