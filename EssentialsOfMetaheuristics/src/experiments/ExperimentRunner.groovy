@@ -1,6 +1,5 @@
 package experiments
 
-
 import problems.HIFF
 import problems.LeadingOnes
 import problems.LeadingOnesBlocks
