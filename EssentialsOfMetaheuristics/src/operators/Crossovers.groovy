@@ -2,29 +2,28 @@ package operators
 
 class Crossovers{
 	static random = new Random()
-	static swap = { x,y ->  x = y; y = x }
+
 	static onePointCrossover(father, mother, crossoverPoint = random.nextInt(father.size)){
 		def f = []
 		def m = []
-		(f, m) = [father[0..<crossoverPoint] + mother[crossoverPoint..<mother.size], 
-				  mother[0..<crossoverPoint] + father[crossoverPoint..<father.size]]				
+		(f, m) = [
+			father[0..<crossoverPoint] + mother[crossoverPoint..<mother.size],
+			mother[0..<crossoverPoint] + father[crossoverPoint..<father.size]]
 	}
 
-	static twoPointCrossover(father, mother, 
-		crossoverPointMin = random.nextInt(father.size), 
-		crossoverPointMax = random.nextInt(mother.size)){
+	static twoPointCrossover(father, mother,
+			xoMin = random.nextInt(father.size),
+			xoMax = random.nextInt(mother.size)){
 		def f = []
 		def m = []
-		if(crossoverPointMin > crossoverPointMax){
-			(crossoverPointMin, crossoverPointMax) = [crossoverPointMax, crossoverPointMin]
+		if(xoMin > xoMax){
+			(xoMin, xoMax) = [xoMax, xoMin]
 		}
-
-		for(crossoverPointMin; crossoverPointMin<crossoverPointMax-1; crossoverPointMin++){
-			def tmp = f[crossoverPointMin]
-			f[crossoverPointMin] = m[crossoverPointMin]
-			m[crossoverPointMin] = tmp
-		}
-		[f, m]
+		(f, m) =
+				[
+					father[0..<xoMin] + mother[xoMin..<xoMax] + father[xoMax..<father.size],
+					mother[0..<xoMin] + father[xoMin..<xoMax] + mother[xoMax..<father.size]
+				]
 	}
 
 	def uniformCrossover(father, mother){
