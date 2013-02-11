@@ -9,7 +9,7 @@ class ParentChildEvolution {
 
 	def maximize(problem){
 		assert numParents > 0 && numChildren >0, "numParents and numChildren must be positive"
-		assert numChildren%numParents == 0, "numChildren must be a multiple of numParents" 
+		assert numChildren%numParents == 0, "numChildren must be a multiple of numParents"
 		def childArr = [] //will be an array of [fitness,value] pairs
 		numChildren.times{
 			def candidateSolution = problem.create()
@@ -17,15 +17,15 @@ class ParentChildEvolution {
 		}
 		def best = childArr[0].value
 		def bestQuality = childArr[0].fitness
-		
+
 		while(!problem.terminate(best, bestQuality)){ //while best is not ideal and we have time
 			childArr.sort()
 			if (childArr[0].fitness > bestQuality) {
 				best = childArr[0].value
 				bestQuality = childArr[0].fitness
 			}
-			ArrayList parentList = new ArrayList()
-			for(def i = 0; i<numParents; i++){
+			def parentList = []
+			numParents.times{i->
 				parentList.add(childArr[i].value)
 			}
 			childArr= []
@@ -39,7 +39,7 @@ class ParentChildEvolution {
 		return best
 	}
 
-		String toString(){
+	String toString(){
 		"(" + numParents+","+numChildren+")Evo"
 	}
 }
