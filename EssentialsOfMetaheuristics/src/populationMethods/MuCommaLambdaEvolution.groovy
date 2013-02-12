@@ -3,7 +3,7 @@ package populationMethods
 import problems.OnesMax
 import groovy.transform.ToString
 
-class ParentChildEvolution {
+class MuCommaLambdaEvolution {
 	Integer numParents = 1
 	Integer numChildren = 1
 
