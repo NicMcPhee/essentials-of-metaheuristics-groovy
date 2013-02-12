@@ -1,4 +1,4 @@
-package singleStateMethods
+package operators
 
 import groovy.transform.ToString
 import java.util.Random
@@ -6,17 +6,17 @@ import java.util.Random
 class GaussianConvolution {
 
     float p = 1
-    Integer var
+    Float variance
     Random r = new Random()
 
     def mutate(problem, v) {
-        vCopy = v.clone()
-        var = problem.variance()
+        def vCopy = v.clone()
+        variance = problem.variance()
         vCopy.size().times { i ->
             if (p >= r.nextDouble()) {
-                n = r.nextGaussian() * var
+                def n = r.nextGaussian() * variance
                 while(! ((problem.min() <= vCopy[i] + n) && (vCopy[i]+n <= problem.max())) ){
-                    n = r.nextGaussian() * var
+                    n = r.nextGaussian() * variance
                 }
                 vCopy[i] += n
             }
@@ -24,6 +24,6 @@ class GaussianConvolution {
         return vCopy
     }
     String toString() {
-        "GC_var:_" + var + "_p:_" + p
+        "GC_var:_" + variance + "_p:_" + p
     }
 }
