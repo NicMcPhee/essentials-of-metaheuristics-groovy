@@ -6,38 +6,36 @@ class TabuSearch {
     
     def maximize(problem){
         def solution = problem.create()
-        def solutionQuality = problem.quality(solution)
         def best = solution
-        def bestQuality = solutionQuality
-        
-        def tabuList = []
-        
+        def tabuList = [] as Queue
         tabuList[0] = solution
         
+        def solutionQuality = problem.quality(solution)
+        def bestQuality = solutionQuality
+        
         while (!problem.terminate(solution, solutionQuality)) {
-            def bestSample
-            def bestSampleQuality = Integer.MIN_VALUE
-            
+
             if(tabuList[tabuListLength - 1] != null) {
-                tabuList.remove(0)
+                tabuList.poll()
             }
             
-            numGradientSamples.times{
-                def r = problem.tweak(problem.copy(solution))
-                def rQuality = problem.quality(r)
+            def r = problem.tweak(problem.copy(solution))
+            def rQuality = problem.quality(r)
+            
+            numGradientSamples.times {
+                def w = problem.tweak(problem.copy(solution))
+                def wQuality = problem.quality(w)
                 
-                if( !(tabuList.contains(rQuality)) && 
-                    (rQuality > bestSampleQuality || (tabuList.contains(r)))){
-                    bestSample = r
-                    bestSampleQuality = rQuality
+                if( !(tabuList.contains(w)) &&
+                    ((wQuality > rQuality) || (tabuList.contains(r)) )){
+                    r = w
+                    rQuality = wQuality
                 }
             }
             
-            
-            
-            if( !(tabuList.contains(bestSample)) && (bestSampleQuality > solutionQuality)){
-                solution = bestSample
-                tabuList.add(bestSample)
+            if( !(tabuList.contains(r)) && (rQuality > solutionQuality)){
+                solution = r
+                tabuList.add(r)
             }
             
             if(solutionQuality > bestQuality){
@@ -46,7 +44,7 @@ class TabuSearch {
             }
         }
         
-        return solution
+        return best
     }
     
     String toString() {
