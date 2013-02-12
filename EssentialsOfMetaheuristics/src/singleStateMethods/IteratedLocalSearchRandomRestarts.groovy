@@ -30,7 +30,7 @@ class IteratedLocalSearchRandomRestarts {
 		
 		while (!problem.terminate(s, sQuality)) {
 			def time = setTime(timeDist)
-			while(!intermediateTerminate(time) && !problem.terminate(s, sQuality)){ //should this be based on s or best?
+			while(!intermediateTerminate(time) && !problem.terminate(s, sQuality)){
 				++intermediateEvalCount
 				def r = problem.tweak(problem.copy(s))
 				def rQuality = problem.quality(r)

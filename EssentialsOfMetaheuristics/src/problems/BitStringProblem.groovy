@@ -10,7 +10,7 @@ class BitStringProblem {
 		// Makes an array of n zeros.
 		[0]*n
 	}
-
+	
 	def copy = { a -> a.clone() }
 	
 	/*
@@ -45,7 +45,7 @@ class BitStringProblem {
 		}
 		return randomBits
 	}
-
+	
 	def perturb = { a, mutationRate = 4, randomBits = null ->
 		if (randomBits == null) {
 			randomBits = generateRandomBits(a.size(), mutationRate)
