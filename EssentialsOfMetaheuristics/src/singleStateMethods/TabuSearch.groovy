@@ -2,9 +2,8 @@ package singleStateMethods
 
 class TabuSearch {
     Integer tabuListLength = 10
-    Integer numGradientSamples = 1
     
-    def maximize(problem){
+    def maximize(problem, numGradientSamples = 1){
         def solution = problem.create()
         def best = solution
         def tabuList = [] as Queue
