@@ -10,7 +10,7 @@ import singleStateMethods.SteepestAscentHillClimber
 import singleStateMethods.SteepestAscentHillClimberWithReplacement
 
 class ExperimentRunner {
-
+  
 	static runExperiment(searchers, problems, numRuns = 30) {
 		for (p in problems) {
 			for (s in searchers) {
@@ -34,6 +34,7 @@ class ExperimentRunner {
 			new SteepestAscentHillClimberWithReplacement(numGradientSamples : 4),
 			new SteepestAscentHillClimberWithReplacement(numGradientSamples : 8),
 			new SteepestAscentHillClimberWithReplacement(numGradientSamples : 16)
+			
 		]
 		def problems = [
 //			new OnesMax(numBits : 100, maxIterations : 250),

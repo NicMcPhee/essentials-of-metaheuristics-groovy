@@ -1,7 +1,5 @@
 package populationMethods
 
-
-//consider using @Immutable and removing the private fields
 @Immutable class FitnessValuePair implements Comparable{
 	protected def value
 	protected def fitness
