@@ -2,8 +2,9 @@ package singleStateMethods
 
 class TabuSearch {
     Integer tabuListLength = 10
+    Integer numGradientSamples = 1
     
-    def maximize(problem, numGradientSamples = 1){
+    def maximize(problem){
         def solution = problem.create()
         def best = solution
         def tabuList = [] as Queue
@@ -13,10 +14,11 @@ class TabuSearch {
         def bestQuality = solutionQuality
         
         while (!problem.terminate(solution, solutionQuality)) {
-
-            if(tabuList[tabuListLength - 1] != null) {
+            
+            if(tabuList.size() == tabuListLength) {
                 tabuList.poll()
             }
+            assert tabuList.size() < tabuListLength
             
             def r = problem.tweak(problem.copy(solution))
             def rQuality = problem.quality(r)
@@ -26,7 +28,7 @@ class TabuSearch {
                 def wQuality = problem.quality(w)
                 
                 if( !(tabuList.contains(w)) &&
-                    ((wQuality > rQuality) || (tabuList.contains(r)) )){
+                    ((wQuality > rQuality) || (tabuList.contains(r))) ){
                     r = w
                     rQuality = wQuality
                 }
@@ -34,6 +36,7 @@ class TabuSearch {
             
             if( !(tabuList.contains(r)) && (rQuality > solutionQuality)){
                 solution = r
+                solutionQuality = rQuality
                 tabuList.add(r)
             }
             
