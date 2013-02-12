@@ -1,4 +1,4 @@
-package singleStateMethods
+package operators
 
 import groovy.transform.ToString
 import java.util.Random
