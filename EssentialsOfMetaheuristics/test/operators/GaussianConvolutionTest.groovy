@@ -10,11 +10,12 @@ class GaussianConvolutionTest extends Specification {
 		def max() { return 1 }
 	}
 
-	def "mutate returns a vector of the correct length in right range"() {
+	def "mutate returns a vector of the correct length in right range and doesn't change original vector"() {
 		given:
 		def problem = new MockProblem()
 		GaussianConvolution gc = new GaussianConvolution(variance : 0.5)
 		def vector = [0.96, 0.83, 0.94, 0.05, 0.78, 0.78, 0.04, 0.53, 0.32, 0.97]
+		def origVector = vector.clone()
 		
 		when:
 		def w = gc.mutate(problem, vector)
@@ -22,8 +23,28 @@ class GaussianConvolutionTest extends Specification {
 		then:
 		w.size() == vector.size()
 		w.every { x -> problem.min() <= x && x <= problem.max() }
+		(0..<vector.size()).every { i ->
+			vector[i] == origVector[i]
+			w[i] != vector[i]
+		}
 	}
-
+	
+	def "mutate with p=0 doesn't change vector"() {
+		given:
+		def problem = new MockProblem()
+		GaussianConvolution gc = new GaussianConvolution(p : 0, variance : 0.5)
+		def vector = [0.96, 0.83, 0.94, 0.05, 0.78, 0.78, 0.04, 0.53, 0.32, 0.97]
+		
+		when:
+		def w = gc.mutate(problem, vector)
+		
+		then:
+		w.size() == vector.size()
+		(0..<vector.size()).every { i ->
+			w[i] == vector[i]
+		}
+	}
+	
 	def "toString() builds a result with default p"() {
 		given:
 		GaussianConvolution gc = new GaussianConvolution(variance : 0.5)
