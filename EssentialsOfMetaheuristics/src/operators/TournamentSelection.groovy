@@ -7,11 +7,11 @@ class TournamentSelection{
     Integer tournamentSize = 2
     Random r = new Random()
     def select(problem, population){
-        s = population[r.nextInt(population.size())]
-        sQuality = problem.quality(s)
-        for(i in 2..tournamentSize){
-            n = population[r.nextInt(population.size())]
-            nQuality = problem.quality(n)
+        def s = population[r.nextInt(population.size())]
+        def sQuality = problem.quality(s)
+        for(i in 2..tournamentSize) {
+            def n = population[r.nextInt(population.size())]
+            def nQuality = problem.quality(n)
             if(nQuality > sQuality){
                 s = n
                 sQuality = nQuality
