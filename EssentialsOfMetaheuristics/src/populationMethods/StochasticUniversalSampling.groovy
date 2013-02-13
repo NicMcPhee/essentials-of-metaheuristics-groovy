@@ -3,14 +3,6 @@ import java.util.Random;
 
 class StochasticUniversalSampling {
 
-    //population size
-    def populationSize
-
-    //population vector
-    def populationVector
-
-    //fitness vector (corresponds to individuals in p)
-    def fitnessVector
 
     //global index
     def index = 0
@@ -42,29 +34,29 @@ class StochasticUniversalSampling {
 
     }
     //main Stochastic Universal Sampling method
-    def sus(popSize, popVector, fitVector){
-        for(int b = 0; b < popSize; b++){
-            shuffle(popVector,fitVector)
+    def sus(populationSize, populationVector, fitnessVector){
+        for(int b = 0; b < populationSize; b++){
+            shuffle(populationVector,fitnessVector)
             def allZeros = true
-            for(int i = 0; i <= fitVector.length; i++){
-                if (fitVector[i] != 0){
+            for(int i = 0; i <= fitnessVector.length; i++){
+                if (fitnessVector[i] != 0){
                     allZeros = false
                 }
             }
             if (allZeros == true){
-                for(int x = 0; x < fitVector.length; x++)
-                fitVector[x]=1
+                for(int x = 0; x < fitnessVector.length; x++)
+                fitnessVector[x]=1
             }
-            for (int a = 1; a < fitVector.length; a++){
-                fitVector[a] = fitVector[a] + fitVector[a-1]
+            for (int a = 1; a < fitnessVector.length; a++){
+                fitnessVector[a] = fitnessVector[a] + fitnessVector[a-1]
             }
-            value = randomInt.next(fitVector[fitVector.length-1]/popSize)
+            value = randomInt.next(fitnessVector[fitnessVector.length-1]/populationSize)
         } 
-            while (fitVector[index] < value){
+            while (fitnessVector[index] < value){
             index++
         }
-            value = value + fitVector[fitVector.length-1]/popSize
-            return popVector[index]
+            value = value + fitnessVector[fitnessVector.length-1]/populationSize
+            return populationVector[index]
     }
 
 }
