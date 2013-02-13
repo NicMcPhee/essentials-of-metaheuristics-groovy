@@ -7,7 +7,7 @@ import problems.OnesMax
  * SO WE CAN COMPARE APPROACHES FOR STATISTICALLY SIGNIFICANT DIFFERENCES!
  */
 class Main {
-	static main(args) {
+  static main(args) {
 		def onesMax = new OnesMax(numBits : 100, maxIterations : 250)
 		def climber = new SteepestAscentHillClimberWithReplacement(problem : onesMax, numGradientSamples : 10)
 		def result = climber.maximize()
