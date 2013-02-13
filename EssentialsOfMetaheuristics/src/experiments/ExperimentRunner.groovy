@@ -8,7 +8,6 @@ import problems.Trap
 import singleStateMethods.HillClimber
 import singleStateMethods.SteepestAscentHillClimber
 import singleStateMethods.SteepestAscentHillClimberWithReplacement
-import singleStateMethods.TabuSearch
 
 class ExperimentRunner {
 	
@@ -34,8 +33,7 @@ class ExperimentRunner {
 			new SteepestAscentHillClimberWithReplacement(numGradientSamples : 2),
 			new SteepestAscentHillClimberWithReplacement(numGradientSamples : 4),
 			new SteepestAscentHillClimberWithReplacement(numGradientSamples : 8),
-			new SteepestAscentHillClimberWithReplacement(numGradientSamples : 16),
-                        new TabuSearch(numGradientSamples : 1)
+			new SteepestAscentHillClimberWithReplacement(numGradientSamples : 16)
 		]
 		def problems = [
 //			new OnesMax(numBits : 100, maxIterations : 250),
