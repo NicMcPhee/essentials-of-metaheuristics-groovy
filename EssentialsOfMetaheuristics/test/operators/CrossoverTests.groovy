@@ -5,7 +5,8 @@ import spock.lang.Specification
 import operators.Crossovers
 
 class CrossoverTests extends Specification {
-    def countOnesAndZeroes(arr){
+    Crossovers crossovers = new Crossovers()
+	def countOnesAndZeroes(arr){
        def ones = arr.findAll { i -> i == 1}
        def zeroes = arr.findAll { i -> i == 0}
        
@@ -19,7 +20,7 @@ class CrossoverTests extends Specification {
 		def zeroes = [0, 0, 0, 0, 0]
 		def onez = [1, 1, 1, 1, 1]
 		when:
-		def children = Crossovers.onePointCrossover(zeroes, onez, 1)
+		def children = crossovers.onePointCrossover(zeroes, onez, 1)
 		
 		then:
 		children == [[0, 1, 1, 1, 1], [1, 0, 0, 0, 0]]
