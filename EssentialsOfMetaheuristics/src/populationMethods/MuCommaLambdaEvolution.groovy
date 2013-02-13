@@ -19,7 +19,7 @@ class MuCommaLambdaEvolution {
 
 		while(!problem.terminate(best.genome, best.fitness)){ //while best is not ideal and we have time
 			childArr.sort()
-			if (childArr[0].fitness > bestQuality) {
+			if (childArr[0].fitness > best.fitness) {
 				best = childArr[0]
 			}
 			def parentList = []
