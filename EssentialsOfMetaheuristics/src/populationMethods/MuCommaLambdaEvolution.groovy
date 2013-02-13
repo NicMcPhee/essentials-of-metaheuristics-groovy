@@ -12,7 +12,7 @@ class MuCommaLambdaEvolution {
 		assert numChildren%numParents == 0, "numChildren must be a multiple of numParents"
 		def childArr = []
 		numChildren.times{
-			def candidateSolution = problem.random()
+			def candidateSolution = problem.create()
 			childArr.add(new GenomeFitnessPair(genome:candidateSolution,fitness:problem.quality(candidateSolution)))
 		}
 		def best = new GenomeFitnessPair(genome: childArr[0].genome, fitness:childArr[0].fitness)
