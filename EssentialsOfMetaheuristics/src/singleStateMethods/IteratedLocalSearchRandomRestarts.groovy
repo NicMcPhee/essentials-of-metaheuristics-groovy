@@ -44,7 +44,7 @@ class IteratedLocalSearchRandomRestarts {
 				bestQuality=sQuality
 			}
 			home = newHomeBase(home, s, homeQuality, sQuality)
-			homeQuality=problem.quality(s)
+			homeQuality=problem.quality(home)
 			s = problem.perturb(home)
 			sQuality=problem.quality(s)
 		}
