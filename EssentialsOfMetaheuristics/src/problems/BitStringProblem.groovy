@@ -23,9 +23,9 @@ class BitStringProblem {
 	 * an fixed array of bits. For now, however, this works, so I'm going to leave
 	 * it alone and move on.
 	 */
-	def tweak = { a, randomBits = null ->
+	def tweak = { a, mutationRate = 1, randomBits = null ->
 		if (randomBits == null) {
-			randomBits = generateRandomBits(a.size())
+			randomBits = generateRandomBits(a.size(), mutationRate)
 		}
 		(0..<a.size()).collect { i ->
 			if (randomBits[i]) {
@@ -47,16 +47,7 @@ class BitStringProblem {
 	}
 	
 	def perturb = { a, mutationRate = 4, randomBits = null ->
-		if (randomBits == null) {
-			randomBits = generateRandomBits(a.size(), mutationRate)
-		}
-		(0..<a.size()).collect { i ->
-			if (randomBits[i]) {
-				1-a[i]
-			} else {
-				a[i]
-			}
-		}
+		tweak(a, mutationRate, randomBits)
 	}
 
 	def terminate = { a, q = quality(a) ->
