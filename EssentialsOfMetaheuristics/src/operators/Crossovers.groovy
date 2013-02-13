@@ -25,7 +25,7 @@ class Crossovers{
 	def uniformCrossover = {father, mother, probability = 1/father.size ->
 		def f = []
 		def m = []
-		for(i in 0..father.size){
+		for(i in 0..father.size-1){
 			if(probability >= random.nextFloat()){
 				f += mother[i]
 				m += father[i]
