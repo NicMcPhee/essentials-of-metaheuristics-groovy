@@ -9,7 +9,7 @@ class Trap extends BitStringProblem {
 	def create = { n = numBits ->
 		// Makes an array of random bits.
 		def result = []
-		for (i in 0..<n) {
+		n.times {
 			result << rand.nextInt(2)
 		}
 		return result

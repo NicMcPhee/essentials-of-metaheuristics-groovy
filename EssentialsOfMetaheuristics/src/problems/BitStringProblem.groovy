@@ -11,6 +11,12 @@ class BitStringProblem {
 		[0]*n
 	}
 	
+	def random = { n = numBits -> 
+		(0..<numBits).collect {
+				rand.nextInt(2)
+			}
+	}
+	
 	def copy = { a -> a.clone() }
 
 	/*
