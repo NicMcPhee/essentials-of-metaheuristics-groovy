@@ -5,7 +5,7 @@ class BitStringProblem {
 	Integer evalCount = 0
 	Integer maxIterations = 1000
 	Integer numBits = 1000
-
+	
 	def create = { n = numBits ->
 		// Makes an array of n zeros.
 		[0]*n
@@ -18,7 +18,7 @@ class BitStringProblem {
 	}
 	
 	def copy = { a -> a.clone() }
-
+	
 	/*
 	 * Having this take an option array of bits works, but probably isn't
 	 * super efficient, especially for large bit strings, as we need to allocate
@@ -29,9 +29,9 @@ class BitStringProblem {
 	 * an fixed array of bits. For now, however, this works, so I'm going to leave
 	 * it alone and move on.
 	 */
-	def tweak = { a, randomBits = null ->
+	def tweak = { a, mutationRate = 1, randomBits = null ->
 		if (randomBits == null) {
-			randomBits = generateRandomBits(a.size())
+			randomBits = generateRandomBits(a.size(), mutationRate)
 		}
 		(0..<a.size()).collect { i ->
 			if (randomBits[i]) {
@@ -42,16 +42,20 @@ class BitStringProblem {
 		}
 	}
 
-	def generateRandomBits(Integer numBits) {
+	def generateRandomBits(Integer numBits, mutationRate = 1) {
 		def randomBits = (0..<numBits).collect {
-				// I'm using the common 1/N rule for mutation, i.e.,
-				// have the mutation probability be 1/N where N is the
-				// length of the bit string.
-				rand.nextInt(numBits) == 0
-			}
+			// I'm using the common 1/N rule for mutation, i.e.,
+			// have the mutation probability be 1/N where N is the
+			// length of the bit string.
+			rand.nextInt((int)numBits/mutationRate) == 0	
+		}
 		return randomBits
 	}
 	
+	def perturb = { a, mutationRate = 4, randomBits = null ->
+		tweak(a, mutationRate, randomBits)
+	}
+
 	def terminate = { a, q = quality(a) ->
 		evalCount >= maxIterations || q == maximalQuality()
 	}
