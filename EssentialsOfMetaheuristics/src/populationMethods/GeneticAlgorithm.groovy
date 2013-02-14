@@ -2,21 +2,18 @@ package populationMethods
 
 import java.util.Random
 import operators.Crossovers
-import singleStateMethods.TournamentSelection
+import operators.TournamentSelection
 
 class GeneticAlgorithm {
 	// Algorithm 20
-	// crossover is assumed to be a closure
-	def crossover = (new Crossovers()).onePointCrossover
-	def selector = new TournamentSelection
 	
-	// Our Algorithm takes a Genetic Algorithm Problem, a desired population size, and the number of runs to run
-	def geneticAlgorithm(problem, populationSize, selectionMethod=selector, crossoverMethod=crossover) {
-		def popsize = populationSize
-		selector=selectionMethod
-		crossover = crossoverMethod
+	// We need popsize to be global so that we can use it in the toString method, also added a default value
+	def popsize = 100
 	
-		// Population
+	// Our Algorithm takes a Genetic Algorithm Problem, a desired population size
+	def geneticAlgorithm(problem, populationSize=popsize, selector=new TournamentSelection(), crossover=new Crossovers().onePointCrossover) {
+		popsize = populationSize
+	
 		def startingPopulation = [] as Set
 		
 		popsize.times {
@@ -47,6 +44,10 @@ class GeneticAlgorithm {
 			startingPopulation = endingPopulation
 		}
 		return best
+	}
+	
+	String toString() {
+		"GA_" + popsize
 	}
 
 }
