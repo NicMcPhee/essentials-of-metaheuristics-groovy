@@ -8,7 +8,7 @@ class MuPlusLambdaES {
 		def individualArr = []
 
 		numChildren.times {
-			individualArr.add(problem.create())
+			individualArr.add(problem.random())
 		}
 
 
