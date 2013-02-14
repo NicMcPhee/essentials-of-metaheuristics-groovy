@@ -23,25 +23,13 @@ class MuPlusLambdaES {
 				}
 			}
 
-			//Calculating the top numParent best of individualArr
-			
-			println("before sort")
-			println(individualArr.sort{problem.quality(it)}.reverse())
-			println("after sort")
-			
-//			for (i in 0..(numParents - 1)){
-//				individualArr.add(sortedIndividualArr.get(i))
-//			}
-
-			//find out how to cut array after the numParent-th element
-			
-			for (i in 0..individualArr.size()-1) {
-				for (j in 1..(numChildren / numParents)) {
+                        individualArr = individualArr.sort{problem.quality(it)}.reverse()[0..<numParents]
+                        
+			for (i in 0..<numParents) {
+				for (j in 0..<(numChildren / numParents)) {
 					individualArr.add(problem.tweak(problem.copy(individualArr.get(i))))
 				}
 			}
-
-			sortedIndividualArr.clear()
 
 		}
 		return best
