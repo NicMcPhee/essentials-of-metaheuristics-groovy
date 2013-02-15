@@ -11,7 +11,7 @@ class GeneticAlgorithm {
 	def popsize = 100
 	
 	// Our Algorithm takes a Genetic Algorithm Problem, a desired population size
-	def geneticAlgorithm(problem, populationSize=popsize, selector=new TournamentSelection(), crossover=new Crossovers().onePointCrossover) {
+	def maximize(problem, populationSize=popsize, selector=new TournamentSelection(), crossover=new Crossovers().onePointCrossover) {
 		popsize = populationSize
 	
 		def startingPopulation = [] as Set
@@ -32,14 +32,15 @@ class GeneticAlgorithm {
 				}
 				
 			}
-			
+
 			def endingPopulation = [] as Set
 			
 			for(i in 0..(popsize/2)) {
-				def parentA = selector.select(problem, startingPopulation)
-				def parentB = selector.select(problem, startingPopulation)
+				def parentA = selector.select(problem, startingPopulation as List)
+				def parentB = selector.select(problem, startingPopulation as List)
 				def children = crossover(parentA, parentB)
-				endingPopulation.add(problem.tweak(children[0]), problem.tweak(children[1]))
+				endingPopulation.add(problem.tweak(children[0]))
+				endingPopulation.add(problem.tweak(children[1]))
 			}
 			startingPopulation = endingPopulation
 		}
