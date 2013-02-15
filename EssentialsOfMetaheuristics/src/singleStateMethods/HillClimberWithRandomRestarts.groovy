@@ -25,7 +25,7 @@ class HillClimberWithRandomRestarts {
                     bestSample = r
                     bestSampleQuality = rQuality
                 }
-                if(problem.evalCount >= problem.maxIterations) {
+                if(problem.terminate(bestSample, bestSampleQuality)) {
                     break;
                 }
             }
