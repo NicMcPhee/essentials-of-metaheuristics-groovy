@@ -2,14 +2,14 @@ package operators
 
 class FitnessProportionateSelection {
 
-    public double select(problem, population) {
+    def select(problem, population) {
         def sum = 0
         def fitIndex = 0
          def decision = Math.random()
         // build a population fitness array
-        def fitnessArray = normalizeFitness(problem,population)
+        def fitnessArray = buildPopFitness(problem, population)
         // normalize fitness array
-        fitnessArray = normalize(fitnessArray)
+        fitnessArray = normalizeFitness(fitnessArray)
         for(person in population) {
             sum += fitnessArray[fitIndex]
             fitIndex++
@@ -43,7 +43,7 @@ class FitnessProportionateSelection {
     // derives normalization ratio
     //
     private normalizedSum(fitnessArr){
-        def sum =0
+        def sum = 0
         for(fitness in fitnessArr){
             sum+=fitness
         }
