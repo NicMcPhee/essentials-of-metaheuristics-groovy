@@ -6,8 +6,8 @@ class FitnessProportionateSelection {
         def sum = 0
         def fitIndex = 0
          def decision = Math.random()
-         build a population fitness array
-        def fitnessArray = buildPopFitness(problem,population)
+        // build a population fitness array
+        def fitnessArray = normalizeFitness(problem,population)
         // normalize fitness array
         fitnessArray = normalize(fitnessArray)
         for(person in population) {
@@ -29,9 +29,9 @@ class FitnessProportionateSelection {
         fitnessArray
     }
     //
-    // Normalizes fitness array
+    // Builds a Normalized fitness array
     //
-    private normalize(fitnessArr){
+    private normalizeFitness(fitnessArr){
         def normFits = []
         def sum = normalizedSum(fitnessArr)
         for(fitness in fitnessArr){
