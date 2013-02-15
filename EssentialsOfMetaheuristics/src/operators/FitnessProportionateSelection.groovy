@@ -1,4 +1,4 @@
-package FitnessProportionateSelection
+package operators
 
 class FitnessProportionateSelection {
 
