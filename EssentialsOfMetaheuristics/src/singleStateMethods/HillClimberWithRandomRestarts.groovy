@@ -6,7 +6,7 @@ class HillClimberWithRandomRestarts {
     // List of numbers representing the number of times the sample solution will be 
     // tweaked before the best sample is compared to the best solution. A random number
     // will be selected from this list.
-    def restartTimeDistro = [1, 10, 15, 30, 100]
+    def restartTimeDistro = [10, 100, 1000]
     Random rand = new Random()
 
     def maximize(problem) {
@@ -25,6 +25,9 @@ class HillClimberWithRandomRestarts {
                     bestSample = r
                     bestSampleQuality = rQuality
                 }
+                if(problem.evalCount >= problem.maxIterations) {
+                    break;
+                }
             }
             s = bestSample
             sQuality = bestSampleQuality
@@ -33,7 +36,7 @@ class HillClimberWithRandomRestarts {
                 bestQuality = sQuality
             }
         }
-        return s
+        return best
     }
 
     String toString() {
