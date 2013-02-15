@@ -43,10 +43,10 @@ class BitStringProblem {
 	}
 
 	def generateRandomBits(Integer numBits, mutationRate = 1) {
+		// For the default this using the common 1/N rule for 
+		// mutation, i.e., have the mutation probability be 1/N 
+		// where N is the length of the bit string.
 		def randomBits = (0..<numBits).collect {
-			// I'm using the common 1/N rule for mutation, i.e.,
-			// have the mutation probability be 1/N where N is the
-			// length of the bit string.
 			rand.nextInt((int)numBits/mutationRate) == 0	
 		}
 		return randomBits
