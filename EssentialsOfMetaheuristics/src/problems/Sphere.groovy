@@ -1,7 +1,10 @@
 package problems
 
-class Sum extends VectorProblem{
+import java.util.Random;
 
+class Sphere extends VectorProblem{
+
+    protected Random rand = new java.util.Random()
     Integer evalCount = 0
     Integer maxIterations = 1000
     Integer numValues = 8
@@ -9,10 +12,8 @@ class Sum extends VectorProblem{
     Float upperBound = 5.12
     Float halfMutationRange = 0.5
 
-    // Minimize f(<x_i>) = 10n + sum { x_i^2 - 10 cos(2 \pi x_i) }, x \in [-5.12, 5.12],
-    // so we'll negate the result since everything we have maximizes.
     def quality = { a ->
         ++evalCount
-        return a.sum()
+        return a.sum({v -> Math.pow(v, 2)})
     }
 }
