@@ -40,11 +40,6 @@ class HillClimberWithRandomRestarts {
     }
 
     String toString() {
-        def distroNoSpaces = ""
-        for(int i = 0; i < restartTimeDistro.size(); i++) {
-            distroNoSpaces += restartTimeDistro[i] + "_"
-        }
-        distroNoSpaces = distroNoSpaces[0..distroNoSpaces.length()-2]
-        "HCWRR_" + distroNoSpaces
+        "HCWRR_" + restartTimeDistro.join("_")
     }
 }
