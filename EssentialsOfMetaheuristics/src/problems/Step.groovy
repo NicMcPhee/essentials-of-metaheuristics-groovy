@@ -15,6 +15,6 @@ class Step extends VectorProblem{
     //plus 6 * vectorSize
     def quality = { a ->
         ++evalCount
-        return a.size()*6 + a.sum({i -> Math.floor(i)})
+        return a.size()*6 + a.sum({v -> Math.floor(v)})
     }
 }

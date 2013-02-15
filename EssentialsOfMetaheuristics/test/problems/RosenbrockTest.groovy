@@ -6,7 +6,7 @@ class RosenbrockTest extends Specification {
     final numValues = 4
     def rosenbrock = new Rosenbrock()
 
-    def "create takes an argument that specifies how many zeros"() {
+    def "create takes an argument that specifies starting values"() {
         expect:
         rosenbrock.create(numValues, [1, 2, 3, -4]) == [1, 2, 3, -4]
     }

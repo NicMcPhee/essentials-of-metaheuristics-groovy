@@ -6,7 +6,7 @@ class SphereTest extends Specification {
     final numValues = 4
     def  sphere = new Sphere()
 
-    def "create takes an argument that specifies how many zeros"() {
+    def "create takes an argument that specifies starting values"() {
         expect:
         sphere.create(numValues, [1, 2, 3, -4]) == [1, 2, 3, -4]
     }

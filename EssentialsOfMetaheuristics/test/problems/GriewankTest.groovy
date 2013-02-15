@@ -1,12 +1,13 @@
 package problems
 
 import spock.lang.Specification
+import static spock.util.matcher.HamcrestMatchers.closeTo
 
 class GriewankTest extends Specification {
     final numValues = 1
     def griewank = new Griewank()
 
-    def "create takes an argument that specifies how many zeros"() {
+    def "create takes an argument that specifies starting values"() {
         expect:
         griewank.create(numValues, [Math.PI*Math.PI/4]) == [Math.PI*Math.PI/4]
     }

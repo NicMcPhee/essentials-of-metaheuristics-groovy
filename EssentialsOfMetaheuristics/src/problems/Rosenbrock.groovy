@@ -14,8 +14,8 @@ class Rosenbrock extends VectorProblem{
     def quality = { a ->
         ++evalCount
         def output = 0
-        for (int i = 0; i < a.size() - 1; i++) {
-            output += Math.pow(1-a[i], 2) + 100*Math.pow(a[i+1] - Math.pow(a[i], 2), 2)
+        (a.size()-1).times { i->
+            output += (1-a[i])**2 + 100*(a[i+1] - a[i]**2)**2
         }
         return output
     }

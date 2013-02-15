@@ -13,12 +13,12 @@ class Griewank extends VectorProblem{
     
     def quality = { a ->
         ++evalCount
-        def output1 = 0
-        def output2 = 1
-        for (int i = 0; i < a.size(); i++) {
-            output1 += Math.pow(a[i], 2)
-            output2 = output2 * Math.cos(a[i] / Math.pow(i+1, 1/2))
+        def sumPart = 0
+        def productPart = 1
+        a.size().times { v ->
+            sumPart += Math.pow(a[v], 2)
+            productPart = productPart * Math.cos(a[v] / (v+1)**(1/2))
         }
-        return 1 + output1/4000 + output2
+        return 1 + sumPart/4000 + productPart
     }
 }

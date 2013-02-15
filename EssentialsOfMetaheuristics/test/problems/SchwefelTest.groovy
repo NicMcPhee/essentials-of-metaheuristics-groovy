@@ -6,7 +6,7 @@ class SchwefelTest extends Specification {
     final numValues = 1
     def schwefel = new Schwefel()
 
-    def "create takes an argument that specifies how many zeros"() {
+    def "create takes an argument that specifies starting values"() {
         expect:
         schwefel.create(numValues, [Math.PI*Math.PI]) == [Math.PI*Math.PI]
     }
