@@ -120,7 +120,7 @@ class OnesMaxTest extends Specification {
 		def shouldMutate = [false, false, false, true, true, false, true, false]
 		
 		when:
-		def mutatedBits = onesMax.tweak(a, shouldMutate)
+		def mutatedBits = onesMax.tweak(a, 1, shouldMutate)
 		
 		then:
 		[a, mutatedBits, shouldMutate].transpose().every { aBit, mBit, s ->
