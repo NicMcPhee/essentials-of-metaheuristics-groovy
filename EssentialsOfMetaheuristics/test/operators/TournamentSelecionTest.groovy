@@ -11,7 +11,7 @@ import spock.lang.Specification;
 class TournamentSelecionTest extends Specification {
 	def "select returns the 'better' option on binary tournaments with pop size 2"() {
 		given:
-		TournamentSelection ts = new TournamentSelection(tournamentSize : 5)
+		TournamentSelection ts = new TournamentSelection(tournamentSize : 10)
 		def problem = new OnesMax()
 		def better = [1, 1, 1, 1]
 		def worser = [0, 0, 0, 0]
@@ -26,7 +26,7 @@ class TournamentSelecionTest extends Specification {
 
 	def "select returns the 'better' option on tournaments of size 10 with pop size 3"() {
 		given:
-		TournamentSelection ts = new TournamentSelection(tournamentSize : 10)
+		TournamentSelection ts = new TournamentSelection(tournamentSize : 20)
 		def problem = new OnesMax()
 		def better = [1, 1, 1, 1]
 		def middle = [1, 0, 1, 0]
