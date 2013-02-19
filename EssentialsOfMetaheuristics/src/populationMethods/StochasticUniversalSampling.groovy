@@ -3,52 +3,82 @@ import java.util.Random;
 
 class StochasticUniversalSampling {
 
+    def populationVector = []
+    
+    
+    def fitnessVector = []
+    
+    def index
+    
+    def individualsProduced = 0
+    
+    def value
+    
+    def random = new Random()
+    
+    def generationCount = 0
 
-    //random number generator
-    def numGenerator = new Random()
+    //method for shuffling vectors 
+    def shuffle(vector){
 
-    //method for shuffling vectors (shuffles both p and f to preserve order)
-    def shuffle(vector1, vector2){
+        def size = vector.size()
 
-
-        //Length of vector1 and vector2 should be the same since each individual has a corresponding fitness.
-        def vectLength = vector1.length
-
-        for (def i = vectLength; i >= 2; i--){
-            def j = numGenerator.next(vectLength-i)+i
-            def temp1 = vector1[i]
-            vector1[i] = vector1[j]
-            vector1[j] = temp1
-            def temp2 = vector2[i]
-            vector2[i] = vector2[j]
-            vector2[j] = temp2
+        for (def i = size; i >= 2; i--){
+            def j = (random.nextInt(i-1)+1)
+            def temp = vector[i]
+            vector[i] = vector[j]
+            vector[j] = temp
         }
-
     }
-    //main Stochastic Universal Sampling method
-    def sus(populationSize, populationVector, fitnessVector){
-        for(int b = 0; b < populationSize; b++){
-            shuffle(populationVector,fitnessVector)
-            def index = 0
-            def allZeros = true
-            for(int i = 0; i <= fitnessVector.length; i++){
-                if (fitnessVector[i] != 0){
-                    allZeros = false
-                }
+    
+    def buildFitnessVector(problem, population){
+        for(person in population){
+            fitnessVector.add(problem.quality(person))
+            
+        }
+    }
+    
+    def convertToCDF(vector){
+        for (int i = 2; i <= vector.size(); i++){
+            vector[i] = vector[i] + vector[i-1]
             }
-            if (allZeros == true){
-                for(int x = 0; x < fitnessVector.length; x++)
-                fitnessVector[x]=1
+        }
+    
+    def allZerosCheck(vector){
+        def allZeros
+        for(fitness in vector){
+            if (fitness != 0){
+                allZeros = false
             }
-            for (int a = 1; a < fitnessVector.length; a++){
-                fitnessVector[a] = fitnessVector[a] + fitnessVector[a-1]
-            }
-            def value = numGenerator.next(fitnessVector[fitnessVector.length-1]/populationSize)
-        } 
+        }
+        if (allZeros == true){
+            for(fitness in vector)
+            fitness=1
+        }
+    }
+    
+    
+    //runs once per generation
+    def prepareVectors(problem, population){
+        def popSize = population.size()
+        buildFitnessVector(problem, population)
+        shuffle(fitnessVector)
+        allZerosCheck(fitnessVector)
+        convertToCDF(fitnessVector)
+        //sets value to random number between 0 and the sum
+        value = Math.random()*(fitnessVector[fitnessVector.size()]/popSize)
+        generationCount++
+        }
+    
+    def select(problem, population){
+        if((population.size() % generationCount) == 0){
+             prepareVectors(problem, population)   
+        }
+         
             while (fitnessVector[index] < value){
             index++
         }
-            value = value + fitnessVector[fitnessVector.length-1]/populationSize
+            value = value + fitnessVector[fitnessVector.size()]/population.size()
             return populationVector[index]
     }
 
