@@ -14,6 +14,6 @@ class Sphere extends VectorProblem{
 
     def quality = { a ->
         ++evalCount
-        return a.sum({v -> Math.pow(v, 2)})
+        return -(a.sum({v -> Math.pow(v, 2)}))
     }
 }
