@@ -13,6 +13,6 @@ class SphereTest extends Specification {
 
     def "Quality Function Works Correctly"() {
         expect:
-        sphere.quality([1, 2, 3, -4]) == 30
+        sphere.quality([1, 2, 3, -4]) == -30
     }
 }

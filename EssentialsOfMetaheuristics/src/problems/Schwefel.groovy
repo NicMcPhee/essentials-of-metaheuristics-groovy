@@ -13,6 +13,6 @@ class Schwefel extends VectorProblem{
 
     def quality = { a ->
         ++evalCount
-        return a.sum({v -> -v*Math.sin(Math.pow(Math.abs(v), 0.5))})
+        return -(a.sum({v -> -v*Math.sin(Math.pow(Math.abs(v), 0.5))}))
     }
 }

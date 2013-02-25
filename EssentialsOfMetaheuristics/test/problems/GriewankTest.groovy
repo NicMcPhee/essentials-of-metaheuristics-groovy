@@ -15,6 +15,7 @@ class GriewankTest extends Specification {
     def "Quality Function Works Correctly"() {
         expect:
         //Since floats are prone to roundoff error, here instead of using == 0 we used a range
-        griewank.quality([Math.PI*Math.PI/4]) < Math.PI*Math.PI/16000 + 1.00000000001 && griewank.quality([Math.PI*Math.PI]) > Math.PI*Math.PI/16000 - 0.00000000001
+        griewank.quality([Math.PI*Math.PI/4]) < -0.22031012493691826 + 0.00000001 && griewank.quality([Math.PI*Math.PI]) > -0.22031012493691826 - 0.00000001
     }
 }
+
