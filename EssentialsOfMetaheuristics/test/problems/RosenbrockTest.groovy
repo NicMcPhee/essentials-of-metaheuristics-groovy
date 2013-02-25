@@ -13,6 +13,6 @@ class RosenbrockTest extends Specification {
 
     def "Quality Function Works Correctly"() {
         expect:
-        rosenbrock.quality([1, 2, 3, -4]) == 17105
+        rosenbrock.quality([1, 2, 3, -4]) == -17105
     }
 }

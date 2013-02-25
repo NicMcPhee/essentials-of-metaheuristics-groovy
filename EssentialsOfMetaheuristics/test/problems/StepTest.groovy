@@ -13,6 +13,6 @@ class StepTest extends Specification {
 
     def "Sum of the floors should be 26"() {
         expect:
-        step.quality([1.5, 1.3, 1.7, -1.0]) == 26
+        step.quality([1.5, 1.3, 1.7, -1.0]) == -26
     }
 }

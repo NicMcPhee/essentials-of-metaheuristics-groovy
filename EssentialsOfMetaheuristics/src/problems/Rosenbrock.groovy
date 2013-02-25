@@ -17,6 +17,6 @@ class Rosenbrock extends VectorProblem{
         (a.size()-1).times { i->
             output += (1-a[i])**2 + 100*(a[i+1] - a[i]**2)**2
         }
-        return output
+        return -output
     }
 }
