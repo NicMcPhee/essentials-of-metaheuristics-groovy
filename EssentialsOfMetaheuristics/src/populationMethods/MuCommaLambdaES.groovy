@@ -1,6 +1,7 @@
 package populationMethods
 
 import problems.OnesMax
+import utility.GenomeFitnessPair;
 
 class MuCommaLambdaES {
 	Integer numParents = 5
