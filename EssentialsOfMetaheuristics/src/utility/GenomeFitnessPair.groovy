@@ -1,4 +1,4 @@
-package populationMethods
+package utility
 
 @groovy.transform.Immutable
 class GenomeFitnessPair implements Comparable{
