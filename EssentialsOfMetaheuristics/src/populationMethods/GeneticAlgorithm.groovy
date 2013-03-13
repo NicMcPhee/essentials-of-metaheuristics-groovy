@@ -1,6 +1,5 @@
 package populationMethods
 
-import java.util.Random
 import operators.Crossovers
 import operators.TournamentSelection
 
