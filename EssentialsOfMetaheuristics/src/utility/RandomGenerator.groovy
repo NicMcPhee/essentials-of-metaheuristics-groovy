@@ -16,4 +16,8 @@ class RandomGenerator{
 	static def nextBoolean(){
 		generator.nextBoolean()
 	}
+	
+	static def nextGaussian(){
+		generator.nextGaussian()
+	}
 }

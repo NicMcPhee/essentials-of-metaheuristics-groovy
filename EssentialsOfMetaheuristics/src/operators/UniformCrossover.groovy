@@ -1,7 +1,7 @@
 package operators
+import utility.RandomGenerator
 
 class UniformCrossover {
-	final def RANDOM = new Random()
 
 	def crossover(parent1, parent2, p = 1.0 / parent1.size()) {
 		assert parent1.size() == parent2.size(), 'parents are the wrong size'
@@ -10,7 +10,7 @@ class UniformCrossover {
 		def new2 = []
 
 		for (i in 0 ..< parent1.size()) {
-			if (p >= RANDOM.nextFloat()) {
+			if (p >= RandomGenerator.nextFloat()) {
 				new1 += parent2[i]
 				new2 += parent1[i]
 			} else {

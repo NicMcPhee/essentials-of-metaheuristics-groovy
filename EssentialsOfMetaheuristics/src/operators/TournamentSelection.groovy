@@ -1,11 +1,11 @@
 package operators
 
 import groovy.transform.ToString
-import java.util.Random
+import utility.RandomGenerator
 
 class TournamentSelection{
     Integer tournamentSize = 2
-    Random r = new Random()
+    def r = RandomGenerator.generator
     def select(problem, population){
         def s = population[r.nextInt(population.size())]
         def sQuality = problem.quality(s)
