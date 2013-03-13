@@ -1,10 +1,7 @@
 package problems
 
-import java.util.Random;
-
 class Sphere extends VectorProblem{
 
-    protected Random rand = new java.util.Random()
     Integer evalCount = 0
     Integer maxIterations = 1000
     Integer numValues = 8

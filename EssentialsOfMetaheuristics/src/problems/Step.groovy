@@ -1,6 +1,5 @@
 package problems
 
-import java.util.Random;
 
 class Step extends VectorProblem{
 

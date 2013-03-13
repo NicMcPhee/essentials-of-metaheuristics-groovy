@@ -1,6 +1,6 @@
 package problems
 
-import java.util.Random;
+
 
 class Schwefel extends VectorProblem{
 

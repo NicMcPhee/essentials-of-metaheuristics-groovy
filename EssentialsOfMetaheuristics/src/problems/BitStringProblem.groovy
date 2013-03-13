@@ -1,7 +1,8 @@
 package problems
+import utility.RandomGenerator
 
 class BitStringProblem {
-    protected rand = new java.util.Random()
+    protected rand = RandomGenerator.generator
     Integer evalCount = 0
     Integer maxIterations = 1000
     Integer numBits = 1000

@@ -1,7 +1,5 @@
 package problems
 
-import java.util.Random;
-
 class Griewank extends VectorProblem{
 
     Integer evalCount = 0

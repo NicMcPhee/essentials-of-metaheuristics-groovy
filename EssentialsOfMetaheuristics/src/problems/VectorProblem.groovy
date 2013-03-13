@@ -1,10 +1,9 @@
 package problems
-
-//import java.util.Random;
+import utility.RandomGenerator
 
 class VectorProblem {
 
-    protected Random rand = new java.util.Random()
+    protected Random rand = RandomGenerator.generator
 
     def create = { n = numValues, values = null ->
         // Makes an array of n random floats between lowerBound and upperBound
