@@ -1,10 +1,9 @@
 package singleStateMethods
 
 import groovy.transform.ToString
-
+import utility.RandomGenerator
 
 class IteratedLocalSearchRandomRestarts {
-	def rand=new Random()
 	def intermediateEvalCount = 0
 	def iterationsSinceHomeBaseChange = 0
 
@@ -12,7 +11,7 @@ class IteratedLocalSearchRandomRestarts {
 
 	def setTime(intervals){
 		intermediateEvalCount=0
-		return intervals[rand.nextInt(timeDistribution().size())]
+		return intervals[RandomGenerator.nextInt(timeDistribution().size())]
 	}
 
 	def intermediateTerminate(time){
