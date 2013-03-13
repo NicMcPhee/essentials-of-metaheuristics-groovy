@@ -1,13 +1,13 @@
 package operators
 
 import groovy.transform.ToString
-import java.util.Random
+import utility.RandomGenerator
 
 class GaussianConvolution {
 
     float p = 1
     Float variance
-    Random r = new Random()
+    Random r = RandomGenerator.generator
 
     def mutate(problem, v) {
         def vCopy = v.clone()

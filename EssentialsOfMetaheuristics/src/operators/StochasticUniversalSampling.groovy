@@ -1,5 +1,5 @@
 package operators
-import java.util.Random;
+import utility.RandomGenerator;
 
 class StochasticUniversalSampling {
 
@@ -11,14 +11,12 @@ class StochasticUniversalSampling {
 
     def value
 
-    def random = new Random()
-
     def selectionCount = 0
 
     def shuffle(vector1, vector2){
         def size = vector1.size()
         (size-1).downto(1) { i ->
-            def j = random.nextInt(i)
+            def j = RandomGenerator.nextInt(i)
             def temp1 = vector1[i]
             vector1[i] = vector1[j]
             vector1[j] = temp1
@@ -69,7 +67,7 @@ class StochasticUniversalSampling {
         popSize = populationVector.size()
         sum = fitnessVector[fitnessVector.size()-1]
         //sets value to random number between 0 and the sum
-        value = Math.random()*(sum/popSize)
+        value = RandomGenerator.nextDouble()*(sum/popSize)
         index = 0
     }
 

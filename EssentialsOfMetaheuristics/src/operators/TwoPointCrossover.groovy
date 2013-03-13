@@ -1,11 +1,11 @@
 package operators
+import utility.RandomGenerator
 
 class TwoPointCrossover {
-	final def RANDOM = new Random()
 
 	def crossover(parent1, parent2,
-		c1 = RANDOM.nextInt(parent1.size() + 1),
-		c2 = RANDOM.nextInt(parent1.size() + 1)) {
+		c1 = RandomGenerator.nextInt(parent1.size() + 1),
+		c2 = RandomGenerator.nextInt(parent1.size() + 1)) {
 		assert parent1.size() == parent2.size(), 'parents are the wrong size'
 
 		def new1 = []

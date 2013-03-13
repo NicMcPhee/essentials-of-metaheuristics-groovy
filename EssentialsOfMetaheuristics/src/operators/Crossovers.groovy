@@ -1,8 +1,9 @@
 package operators
+import utility.RandomGenerator
 
 class Crossovers{
-	static random = new Random()
-
+	def random = RandomGenerator.generator
+	
 	def onePointCrossover = { father, mother, crossoverPoint = random.nextInt(father.size) ->
 			[
 				father[0..<crossoverPoint] + mother[crossoverPoint..<mother.size],

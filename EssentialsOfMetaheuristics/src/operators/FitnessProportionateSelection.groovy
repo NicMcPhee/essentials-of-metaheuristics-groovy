@@ -1,11 +1,12 @@
 package operators
+import utility.RandomGenerator
 
 class FitnessProportionateSelection {
 
     def select(problem, population) {
         def sum = 0
         def fitIndex = 0
-         def decision = Math.random()
+         def decision = RandomGenerator.nextDouble()
         // build a population fitness array
         def fitnessArray = buildPopFitness(problem, population)
         // normalize fitness array

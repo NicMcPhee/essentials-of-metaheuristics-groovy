@@ -1,13 +1,12 @@
 package singleStateMethods
 
-import java.util.Random
+import utility.RandomGenerator
 
 class HillClimberWithRandomRestarts {
     // List of numbers representing the number of times the sample solution will be 
     // tweaked before the best sample is compared to the best solution. A random number
     // will be selected from this list.
     def restartTimeDistro = [10, 100, 1000]
-    Random rand = new Random()
 
     def maximize(problem) {
         def s = problem.create()
@@ -17,7 +16,7 @@ class HillClimberWithRandomRestarts {
         while (!problem.terminate(s, sQuality)) {
             def bestSample
             def bestSampleQuality = Integer.MIN_VALUE
-            def loops = restartTimeDistro[rand.nextInt(restartTimeDistro.size())]
+            def loops = restartTimeDistro[RandomGenerator.nextInt(restartTimeDistro.size())]
             for(int i = 0; i < loops; i++) {
                 def r = problem.tweak(problem.copy(s))
                 def rQuality = problem.quality(r)
