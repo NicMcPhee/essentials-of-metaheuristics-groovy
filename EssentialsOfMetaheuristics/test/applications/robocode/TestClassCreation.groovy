@@ -24,7 +24,7 @@ class TestClassCreation extends Specification {
         my_energy = random.nextFloat() * 100
         angle_diff = random.nextFloat() * 100
         distance = random.nextFloat() * 100
-        robotBuilder = new RobotBuilder()
+        robotBuilder = new RobotBuilder("templates/HawkOnFireOS.template")
     }
 
     /*
@@ -46,14 +46,16 @@ class TestClassCreation extends Specification {
     def confirmJavaFileExists() {
         File file = new File("evolved_robots/Individual_${id}.java")
         def contents = file.readLines()
-        def interestingLines = contents.findResults { line ->
-            (line.indexOf("public class") > 0) || (line.indexOf("eval += ") > 0)
+        def interestingLines = contents.findAll { line ->
+            (line.indexOf("public class") >= 0) || (line.indexOf("eval += ") >= 0)
         }
-        assert interestingLines.size() == 5
-        assert interestingLines[0].indexOf("Individual_${id}") > 0
-        assert interestingLines[1].indexOf("eval += (${enemy_energy})") > 0
-        assert interestingLines[1].indexOf("eval += (${my_energy})") > 0
-        assert interestingLines[1].indexOf("eval += (${angle_diff})") > 0
-        assert interestingLines[1].indexOf("eval += (${distance})") > 0
+        // There's actually a sixth matching line because of the MicroEnemy inner class
+        assert interestingLines.size() == 6
+        assert interestingLines[0].indexOf("Individual_${id}") >= 0
+        assert interestingLines[1].indexOf("eval += (${enemy_energy})") >= 0
+        assert interestingLines[2].indexOf("eval += (${my_energy})") >= 0
+        assert interestingLines[3].indexOf("eval += (${angle_diff})") >= 0
+        assert interestingLines[4].indexOf("eval += (${distance})") >= 0
+        return true
     }
 }
