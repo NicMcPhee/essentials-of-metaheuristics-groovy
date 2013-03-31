@@ -33,11 +33,7 @@ class IntermediateRecombination {
         [father, mother]}
 
     def randVal = {p->
-
-        def val = rand.nextInt(p + 1)
-        if(rand.nextInt(1)==0){
-            val *= -1 
-        }
+        def val = (rand.nextInt(p + 1)*2) - p        
 
     }
 
