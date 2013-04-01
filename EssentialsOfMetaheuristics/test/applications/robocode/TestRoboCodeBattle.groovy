@@ -2,6 +2,12 @@ package applications.robocode
 
 import spock.lang.Specification
 
+
+/*
+ * This assumes that there is a copy of Robocode in your home directory,
+ * and that it has been configured (via the GUI) to be able to load robot
+ * files from the evolved_robots directory in this project.
+ */
 class TestRoboCodeBattle extends Specification {
 	/*
 	 * id : an id used in the generation of the name of the class.
