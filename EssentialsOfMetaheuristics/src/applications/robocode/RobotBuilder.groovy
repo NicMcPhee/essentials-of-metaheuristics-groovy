@@ -4,7 +4,8 @@ import groovy.text.SimpleTemplateEngine
 
 class RobotBuilder {
     def template
-    def robotDirectory = "evolved_robots/"
+    def robotDirectory = "evolved_robots"
+	def robotPackage = "evolved"
     
     def RobotBuilder(String templateFileName) {
         def engine = new SimpleTemplateEngine()
@@ -13,7 +14,7 @@ class RobotBuilder {
     
     def buildClassFile(values) {
         def javaFileName = buildJavaFile(values)
-        def command = "javac -cp ../lib/robocode.jar ${javaFileName}"
+        def command = "javac -cp ../lib/robocode.jar ${robotPackage}/${javaFileName}"
         def proc = command.execute(null, new File(robotDirectory))
         proc.waitFor()
 //        println "return code: ${proc.exitValue()}"
@@ -35,7 +36,8 @@ class RobotBuilder {
 
     private File createFile(javaFileName) {
         new File(robotDirectory).mkdir()
-        File javaFile = new File(robotDirectory + "/" + javaFileName)
+		new File("${robotDirectory}/${robotPackage}").mkdir()
+        File javaFile = new File("${robotDirectory}/${robotPackage}/${javaFileName}")
         assert !javaFile.exists()
         javaFile.createNewFile()
         return javaFile
@@ -44,11 +46,6 @@ class RobotBuilder {
     private writeFile(javaFile, values) {
         def result = template.make(values)
         javaFile << result.toString()
-//        javaFile << "public class Individual_${id}\n"
-//        javaFile << "eval += (${enemy_energy})\n"
-//        javaFile << "eval += (${my_energy})\n"
-//        javaFile << "eval += (${angle_diff})\n"
-//        javaFile << "eval += (${distance})\n"
     }
 
 }

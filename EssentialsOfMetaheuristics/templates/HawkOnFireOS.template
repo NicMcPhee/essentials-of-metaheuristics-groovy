@@ -1,4 +1,4 @@
-package applications.robocode;
+package evolved;
 
 import robocode.*;
 import robocode.util.Utils;

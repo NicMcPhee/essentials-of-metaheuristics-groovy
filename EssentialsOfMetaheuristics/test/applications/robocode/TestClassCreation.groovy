@@ -61,7 +61,7 @@ class TestClassCreation extends Specification {
     }
 
     def confirmJavaFileExists() {
-        File file = new File("evolved_robots/Individual_${id}.java")
+        File file = new File("evolved_robots/evolved/Individual_${id}.java")
         def contents = file.readLines()
         def interestingLines = contents.findAll { line ->
             (line.indexOf("public class") >= 0) || (line.indexOf("eval += ") >= 0)
@@ -77,7 +77,7 @@ class TestClassCreation extends Specification {
     }
 
     def confirmClassFileExists() {
-        File file = new File("evolved_robots/Individual_${id}.class")
+        File file = new File("evolved_robots/evolved/Individual_${id}.class")
         assert file.exists()
         return true
     }
