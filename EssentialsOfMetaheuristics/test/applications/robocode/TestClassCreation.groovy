@@ -16,7 +16,7 @@ class TestClassCreation extends Specification {
     def angle_diff
     def distance
     def robotBuilder
-    
+
     def setup() {
         Random random = new Random()
         id = random.nextInt(1000000)
@@ -32,17 +32,34 @@ class TestClassCreation extends Specification {
      * use the templating tools to create a file containing
      * the Java source for a robot.
      */
-    def "Confirm that we can create an Individual class"() {
+    def "Confirm that we can create a Java source file for an individual"() {
         given:
         def values = ["id" : id, "enemy_energy" : enemy_energy, "my_energy" : my_energy, "angle_diff" : angle_diff, "distance" : distance]
 
         when:
         robotBuilder.buildJavaFile(values)
-        
+
         then:
         confirmJavaFileExists()
     }
-    
+
+    /*
+     * Make sure that given some data, we can create
+     * a file containing the Java source for a robot, which we can then
+     * compile into a Java class file.
+     */
+    def "Confirm that we can create a Java class file for an individual"() {
+        given:
+        def values = ["id" : id, "enemy_energy" : enemy_energy, "my_energy" : my_energy, "angle_diff" : angle_diff, "distance" : distance]
+
+        when:
+        robotBuilder.buildClassFile(values)
+
+        then:
+        confirmJavaFileExists()
+        confirmClassFileExists()
+    }
+
     def confirmJavaFileExists() {
         File file = new File("evolved_robots/Individual_${id}.java")
         def contents = file.readLines()
@@ -56,6 +73,12 @@ class TestClassCreation extends Specification {
         assert interestingLines[2].indexOf("eval += (${my_energy})") >= 0
         assert interestingLines[3].indexOf("eval += (${angle_diff})") >= 0
         assert interestingLines[4].indexOf("eval += (${distance})") >= 0
+        return true
+    }
+
+    def confirmClassFileExists() {
+        File file = new File("evolved_robots/Individual_${id}.class")
+        assert file.exists()
         return true
     }
 }
