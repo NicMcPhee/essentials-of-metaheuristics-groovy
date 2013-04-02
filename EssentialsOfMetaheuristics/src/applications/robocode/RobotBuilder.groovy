@@ -17,7 +17,6 @@ class RobotBuilder {
         buildPropertiesFile(values)
         def id = values['id']
         def fileNamePrefix = "Individual_${id}"
-//        def command = "jar -cfm ${fileNamePrefix}.jar ../templates/manifest.txt"
         def command = "jar -cf ${fileNamePrefix}.jar"
         [".java", ".class", "\$MicroEnemy.class", ".properties"].each { suffix ->
             command += " ${robotPackage}/${fileNamePrefix}${suffix}"
