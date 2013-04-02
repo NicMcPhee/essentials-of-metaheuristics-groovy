@@ -1,5 +1,6 @@
 package applications.robocode
 
+import java.util.jar.JarFile
 import spock.lang.Specification
 
 class TestClassCreation extends Specification {
@@ -41,6 +42,9 @@ class TestClassCreation extends Specification {
 
         then:
         confirmJavaFileExists()
+        
+        cleanup:
+        removeJavaFile()
     }
 
     /*
@@ -58,6 +62,33 @@ class TestClassCreation extends Specification {
         then:
         confirmJavaFileExists()
         confirmClassFileExists()
+        
+        cleanup:
+        removeJavaFile()
+        removeClassFile()
+    }
+
+    /*
+     * Make sure that given some data, we can create
+     * a jar file containing the Java source and the 
+     * compiled Java class file(s) for a robot.
+     */
+    def "Confirm that we can create a jar file for an individual"() {
+        given:
+        def values = ["id" : id, "enemy_energy" : enemy_energy, "my_energy" : my_energy, "angle_diff" : angle_diff, "distance" : distance]
+
+        when:
+        robotBuilder.buildJarFile(values)
+
+        then:
+        confirmJavaFileExists()
+        confirmClassFileExists()
+        confirmJarFileExists()
+        
+        cleanup:
+        removeJavaFile()
+        removeClassFile()
+        removePropertiesFile()
     }
 
     def confirmJavaFileExists() {
@@ -80,5 +111,30 @@ class TestClassCreation extends Specification {
         File file = new File("evolved_robots/evolved/Individual_${id}.class")
         assert file.exists()
         return true
+    }
+    
+    def confirmJarFileExists() {
+        File file = new File("evolved_robots/Individual_${id}.jar")
+        assert file.exists()
+        def entryNames = new JarFile(file).entries().collect { it.name }
+        def targets = ["evolved/Individual_${id}.class", 
+            "evolved/Individual${id}\$MicroEnemy.class", 
+            "evolved/Individual_${id}.java",
+            "evolved/Individual_${id}.properties"]
+        entryNames.containsAll(targets)
+        return true
+    }
+    
+    def removeJavaFile() {
+        new File("evolved_robots/evolved/Individual_${id}.java").delete()
+    }
+
+    def removeClassFile() {
+        new File("evolved_robots/evolved/Individual_${id}.class").delete()
+        new File("evolved_robots/evolved/Individual_${id}\$MicroEnemy.class").delete()
+    }
+    
+    def removePropertiesFile() {
+        new File("evolved_robots/evolved/Individual_${id}.properties").delete()
     }
 }
