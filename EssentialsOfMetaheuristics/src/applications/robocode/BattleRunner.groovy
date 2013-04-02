@@ -28,7 +28,7 @@ class BattleRunner {
     }
 
     def runBattle(id) {
-        linkClassFiles(id)
+        linkJarFile(id)
         File battleFile = new File("${robotDirectory}/evolve.battle")
         def command = "${userHome}/robocode/robocode.sh -battle ${battleFile.absolutePath} -nodisplay"
         def proc = command.execute(null, new File(robotDirectory))
@@ -36,18 +36,24 @@ class BattleRunner {
         assert proc.exitValue() == 0
         assert proc.err.text.equals("")
         def lines = proc.in.text.split("\n")
+        def result = false
         lines.each { line ->
-            def m = line =~ /evolved\.Individual_${id}\s+(\d+)/
+            def pattern = ~/evolved\.Individual_${id}\s+(\d+)/
+            def m = (line =~ pattern)
             if (m) {
-                return m[0][1]
+                result = Integer.parseInt(m[0][1])
             }
+        }
+        if (result) {
+            return result
+        } else {
+            throw new RuntimeException("Didn't find score for evolved robot")
         }
     }
     
-    def linkClassFiles(id) {
-        def robotDir = new File("${userHome}/robocode/robots/evolved/")
-        robotDir.mkdir()
-        def command = "ln -s ${robotDirectoryAbsolute}/evolved/Individual_${id}.class ${robotDirectoryAbsolute}/evolved/Individual_${id}\$MicroEnemy.class ."
+    def linkJarFile(id) {
+        def robotDir = new File("${userHome}/robocode/robots/")
+        def command = "ln -s ${robotDirectoryAbsolute}/Individual_${id}.jar ."
         def proc = command.execute(null, robotDir)
         proc.waitFor()
         assert proc.exitValue() == 0

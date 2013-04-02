@@ -34,7 +34,7 @@ class TestRoboCodeBattle extends Specification {
         def values = ["id" : id, "enemy_energy" : enemy_energy, "my_energy" : my_energy, "angle_diff" : angle_diff, "distance" : distance]
 
 		robotBuilder = new RobotBuilder("templates/HawkOnFireOS.template")
-		robotBuilder.buildClassFile(values)
+		robotBuilder.buildJarFile(values)
 		
 		battleRunner = new BattleRunner("templates/battle.template")
 	}
