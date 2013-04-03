@@ -2,6 +2,7 @@ package applications.robocode
 
 import groovy.text.SimpleTemplateEngine
 
+// I'm adding a comment via GitHub - how weird is that?!?
 
 /*
  * This assumes that there is a copy of Robocode in your home directory,
