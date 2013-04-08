@@ -11,6 +11,7 @@ package applications.robocode
 class RoboCodeProblem {
     Integer individualCount = 0
     Integer evalCount = 0
+    Integer maxEvalCount = 100
     Random random = new Random()
     public static final STDEV = 10
     
@@ -28,7 +29,13 @@ class RoboCodeProblem {
     }
     
     def tweak(individual) {
-        return individual
+        ++individualCount
+        def result = [ 'id' : individualCount, 
+            'enemy_energy' : individual['enemy_energy'] + random.nextGaussian(),
+            'my_energy' : individual['my_energy'] + random.nextGaussian(),
+            'angle_diff' : individual['angle_diff'] + random.nextGaussian(),
+            'distance' : individual['distance'] + random.nextGaussian() ]
+        return result
     }
     
     def quality(individual) {
@@ -37,6 +44,6 @@ class RoboCodeProblem {
     }
     
     def terminate(bestIndividual, bestQuality) {
-        evalCount > 100
+        evalCount > maxEvalCount
     }
 }
