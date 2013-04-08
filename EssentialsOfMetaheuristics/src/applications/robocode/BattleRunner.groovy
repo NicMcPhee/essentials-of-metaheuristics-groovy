@@ -37,7 +37,7 @@ class BattleRunner {
         assert proc.exitValue() == 0
         assert proc.err.text.equals("")
         def lines = proc.in.text.split("\n")
-        def result = false
+        def result = -1
         lines.each { line ->
             def pattern = ~/evolved\.Individual_${id}\s+(\d+)/
             def m = (line =~ pattern)
@@ -45,7 +45,7 @@ class BattleRunner {
                 result = Integer.parseInt(m[0][1])
             }
         }
-        if (result) {
+        if (result >= 0) {
             return result
         } else {
             throw new RuntimeException("Didn't find score for evolved robot")
