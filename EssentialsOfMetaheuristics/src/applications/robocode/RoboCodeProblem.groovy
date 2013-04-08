@@ -13,6 +13,8 @@ class RoboCodeProblem {
     Integer evalCount = 0
     Integer maxEvalCount = 100
     Random random = new Random()
+    RobotBuilder robotBuilder = new RobotBuilder("templates/HawkOnFireOS.template")
+    BattleRunner battleRunner = new BattleRunner("templates/battle.template")
     public static final STDEV = 10
     
     def random() {
@@ -40,7 +42,10 @@ class RoboCodeProblem {
     
     def quality(individual) {
         ++evalCount
-        return 0
+        robotBuilder.buildJarFile(individual)
+        battleRunner.buildBattleFile(individual['id'])
+        def score = battleRunner.runBattle(individual['id'])
+        return score
     }
     
     def terminate(bestIndividual, bestQuality) {
