@@ -1,9 +1,9 @@
 #Battle Properties
-robocode.battleField.width=800
-robocode.battleField.height=600
-robocode.battle.numRounds=10
+robocode.battleField.width=1200
+robocode.battleField.height=1200
+robocode.battle.numRounds=25
 robocode.battle.gunCoolingRate=0.1
 robocode.battle.rules.inactivityTime=450
 robocode.battle.hideEnemyNames=true
-robocode.battle.selectedRobots=sample.Walls,evolved.Individual_${id}
+robocode.battle.selectedRobots=rz.HawkOnFire,sample.Walls,sample.MyFirstRobot,sample.RamFire,sample.SittingDuck,sample.SpinBot,sample.Tracker,sample.TrackFire,sample.VelociRobot,evolved.Individual_${id}
 
