@@ -23,7 +23,7 @@ class RobotBuilder {
         }
         def proc = command.execute(null, new File(robotDirectory))
         proc.waitFor()
-        println(proc.in.text)
+//        println(proc.in.text)
         assert proc.err.text.equals("")
         assert proc.exitValue() == 0
     }

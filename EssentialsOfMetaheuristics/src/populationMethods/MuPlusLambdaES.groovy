@@ -23,6 +23,7 @@ class MuPlusLambdaES {
                 if (problem.quality(individual) > bestQuality) {
                     best = individual
                     bestQuality = problem.quality(best)
+                    println "Best fitness of ${bestQuality} is ${best}."
                 }
             }
 

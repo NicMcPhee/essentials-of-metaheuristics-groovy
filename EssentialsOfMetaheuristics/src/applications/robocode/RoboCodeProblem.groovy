@@ -16,6 +16,7 @@ class RoboCodeProblem {
     RobotBuilder robotBuilder = new RobotBuilder("templates/HawkOnFireOS.template")
     BattleRunner battleRunner = new BattleRunner("templates/battle.template")
     public static final STDEV = 10
+    def fitnesses = [:]
     
     def random() {
         ++individualCount
@@ -41,10 +42,14 @@ class RoboCodeProblem {
     }
     
     def quality(individual) {
+        if (fitnesses[individual['id']]) {
+            return fitnesses[individual['id']]
+        }
         ++evalCount
         robotBuilder.buildJarFile(individual)
         battleRunner.buildBattleFile(individual['id'])
         def score = battleRunner.runBattle(individual['id'])
+        fitnesses[individual['id']] = score
         return score
     }
     
