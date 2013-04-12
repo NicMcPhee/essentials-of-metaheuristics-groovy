@@ -27,10 +27,10 @@ class RoboCodeExperimentRunner {
 
     static main(args) {
         def searchers = [
-            new MuPlusLambdaES()
+            new MuPlusLambdaES(numParents: 10, numChildren: 20)
         ]
         def problems = [
-            new RoboCodeProblem()
+            new RoboCodeProblem(maxEvalCount: 500)
         ]
         // It would be nice to collect the total time here and include it in the
         // output.
