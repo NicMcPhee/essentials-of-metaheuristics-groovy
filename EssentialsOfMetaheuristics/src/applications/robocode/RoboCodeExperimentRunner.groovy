@@ -1,6 +1,5 @@
-package experiments
+package applications.robocode
 
-import applications.robocode.RoboCodeProblem
 import populationMethods.MuPlusLambdaES
 import problems.HIFF
 import problems.LeadingOnes
@@ -27,7 +26,7 @@ class RoboCodeExperimentRunner {
 
     static main(args) {
         def searchers = [
-            new MuPlusLambdaES(numParents: 10, numChildren: 20)
+            new RoboCodeMuPlusLambdaES() // numParents: 10, numChildren: 20)
         ]
         def problems = [
             new RoboCodeProblem(maxEvalCount: 500)

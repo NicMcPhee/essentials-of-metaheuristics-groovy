@@ -20,11 +20,19 @@ class BattleRunner {
         template = engine.createTemplate(new File(templateFileName))
     }
 
-    def buildBattleFile(id) {
+    def buildBattleFile(id, bestSoFars) {
         File battleFile = new File("${robotDirectory}/evolve.battle")
         battleFile.delete()
         battleFile.createNewFile()
-        def result = template.make(["id" : id])
+        def otherRobots = ""
+        bestSoFars.each { r ->
+            otherRobots += ",evolved.Individual_${r['id']}"
+        }
+        (4-bestSoFars.size()).times {
+            otherRobots += ",sample.SittingDuck"
+        }
+        def map = ["id" : id, "otherRobots" : otherRobots]
+        def result = template.make(map)
         battleFile << result.toString()
     }
 
