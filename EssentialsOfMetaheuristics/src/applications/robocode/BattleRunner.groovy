@@ -28,9 +28,6 @@ class BattleRunner {
         bestSoFars.each { r ->
             otherRobots += ",evolved.Individual_${r['id']}"
         }
-        (4-bestSoFars.size()).times {
-            otherRobots += ",sample.SittingDuck"
-        }
         def map = ["id" : id, "otherRobots" : otherRobots]
         def result = template.make(map)
         battleFile << result.toString()
@@ -47,7 +44,11 @@ class BattleRunner {
         def lines = proc.in.text.split("\n")
         def result = -1
         lines.each { line ->
-            def pattern = ~/evolved\.Individual_${id}\s+(\d+)/
+//            def pattern = ~/evolved\.Individual_${id}.+(\d+)\s+\d+\s+\d+\s*&/
+            def pattern = ~/(\d+)\w+:\s+evolved\.Individual_${id}/
+            if (line =~ /%/) {
+                println line
+            }
             def m = (line =~ pattern)
             if (m) {
                 result = Integer.parseInt(m[0][1])
