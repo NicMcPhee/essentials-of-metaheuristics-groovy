@@ -26,7 +26,7 @@ class RoboCodeExperimentRunner {
 
     static main(args) {
         def searchers = [
-            new RoboCodeMuPlusLambdaES() // numParents: 10, numChildren: 20)
+            new RoboCodeMuPlusLambdaES(numParents: 10, numChildren: 20)
         ]
         def problems = [
             new RoboCodeProblem(maxEvalCount: 500)
