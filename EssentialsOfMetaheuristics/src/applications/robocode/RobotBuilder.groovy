@@ -41,8 +41,8 @@ class RobotBuilder {
         def command = "javac -cp ../lib/robocode.jar ${robotPackage}/${javaFileName}"
         def proc = command.execute(null, new File(robotDirectory))
         proc.waitFor()
-        assert proc.exitValue() == 0
         assert proc.err.text.equals("")
+        assert proc.exitValue() == 0
 //        println "return code: ${proc.exitValue()}"
 //        println "stderr: ${proc.err.text}"
 //        println "stdout: ${proc.in.text}"
