@@ -28,13 +28,13 @@ class RoboCodeMuPlusLambdaES {
 
         while(!problem.terminate(best, bestQuality)) {
             for (individual in individualArr) {
-                if (problem.quality(individual, bestSoFars) > bestQuality) {
+                if (problem.quality(individual, bestSoFars) >= bestQuality) {
                     best = individual
                     bestQuality = problem.quality(best, bestSoFars)
                     println "Best fitness of ${bestQuality} is ${best}."
-                    if (bestSoFars.size() == 4) {
-                        bestSoFars.pop()
-                    }
+//                    if (bestSoFars.size() == 4) {
+//                        bestSoFars.pop()
+//                    }
                     bestSoFars.push(best)
                     println "Best so fars = ${bestSoFars}"
                 }
@@ -42,11 +42,13 @@ class RoboCodeMuPlusLambdaES {
 
             individualArr = individualArr.sort{problem.quality(it, bestSoFars)}.reverse()[0..<numParents]
 
+            def children = []
             for (i in 0..<numParents) {
                 for (j in 0..<(numChildren / numParents)) {
-                    individualArr.add(problem.tweak(problem.copy(individualArr.get(i))))
+                    children.add(problem.tweak(problem.copy(individualArr.get(i))))
                 }
             }
+            individualArr = children
 
         }
         return best
