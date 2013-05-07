@@ -18,13 +18,17 @@ class RoboCodeProblem {
     public static final STDEV = 10
     def fitnesses = [:]
     
+    def labels = ['my_velocity', 'enemy_velocity', 'velocity_diff', 'my_heading',
+        'enemy_heading', 'heading_diff', 'energy_ratio', 'energy_diff',
+        'enemy_energy', 'my_energy', 'angle_diff', 'distance', 'center_dist', 'aim_tolerance']
+    
     def random() {
         ++individualCount
-        [ 'id' : individualCount, 
-            'enemy_energy' : random.nextGaussian()*STDEV,
-            'my_energy' : random.nextGaussian()*STDEV,
-            'angle_diff' : random.nextGaussian()*STDEV,
-            'distance' : random.nextGaussian()*STDEV ]
+        def individual = [ 'id' : individualCount ]
+        labels.each { label ->
+            individual[label] = random.nextGaussian()*STDEV
+        }
+        return individual
     }
     
     def copy(individual) {
@@ -33,11 +37,10 @@ class RoboCodeProblem {
     
     def tweak(individual) {
         ++individualCount
-        def result = [ 'id' : individualCount, 
-            'enemy_energy' : individual['enemy_energy'] + random.nextGaussian(),
-            'my_energy' : individual['my_energy'] + random.nextGaussian(),
-            'angle_diff' : individual['angle_diff'] + random.nextGaussian(),
-            'distance' : individual['distance'] + random.nextGaussian() ]
+        def result = [ 'id' : individualCount ]
+        labels.each { label ->
+            result[label] = individual[label] + random.nextGaussian()
+        }
         return result
     }
     
@@ -48,7 +51,7 @@ class RoboCodeProblem {
         ++evalCount
         robotBuilder.buildJarFile(individual)
         battleRunner.buildBattleFile(individual['id'], bestSoFars)
-        def score = battleRunner.runBattle(individual['id'])
+        def score = -battleRunner.runBattle(individual['id'])
         fitnesses[individual['id']] = score
         return score
     }

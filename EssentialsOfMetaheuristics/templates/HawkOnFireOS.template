@@ -14,10 +14,19 @@ import java.awt.geom.Point2D;
 /*
  * This template has the following fields that need to be filled in:
  *   id : an id used in the generation of the name of the class.
- *   enemy_energy : the coefficient for the enemy's energy
- *   my_energy : the coefficient for our energy
- *   angle_diff : the coefficient for the different in angles between us and the point and then and the point
- *   distance : the coefficient for the distance between the point and the enemy
+ *   my_velocity
+ *   enemy_velocity
+ *   velocity_diff
+ *   my_heading
+ *   enemy_heading
+ *   heading_diff
+ *   energy_ratio
+ *   energy_diff
+ *   enemy_energy
+ *   my_energy
+ *   angle_diff
+ *   distance
+ *   center_dist
  */
  
 public class Individual_${id} extends AdvancedRobot
@@ -62,8 +71,21 @@ public class Individual_${id} extends AdvancedRobot
 		double distanceToTarget = myPos.distance(target.pos);
 		
 	//**** gun ******************//
-		// HeadOnTargeting there's nothing I can say about this
-		if(getGunTurnRemaining() == 0 && myEnergy > 1) {
+		double targetAngle = 0;
+		targetAngle += (${my_velocity}) * getVelocity();
+		targetAngle += (${enemy_velocity}) * target.velocity;
+		targetAngle += (${velocity_diff}) * (getVelocity() - target.velocity);
+		targetAngle += (${my_heading}) * getHeading();
+		targetAngle += (${enemy_heading}) * target.heading;
+		targetAngle += (${heading_diff}) * (getHeading() - target.heading);
+		while (targetAngle > 180) {
+			targetAngle -= 360;
+	    }
+	    while (targetAngle < -180) {
+	    	targetAngle += 360;
+	    }
+		
+		if(Math.abs(getGunTurnRemaining() - targetAngle) < Math.abs(${aim_tolerance}) && myEnergy > 1) {
 			setFire( Math.min(Math.min(myEnergy/6d, 1300d/distanceToTarget), target.energy/3d) );
 		}
 		
@@ -115,7 +137,7 @@ public class Individual_${id} extends AdvancedRobot
 	}
 	
 //- eval position ---------------------------------------------------------------------------------------------------------------------------
-	public static double evaluate(Point2D.Double p, double addLast) {
+	public double evaluate(Point2D.Double p, double addLast) {
 		// this is basically here that the bot uses more space on the battlefield. In melee it is dangerous to stay somewhere too long.
 		double eval = addLast*0.08/p.distanceSq(lastPosition);
 		
@@ -129,10 +151,13 @@ public class Individual_${id} extends AdvancedRobot
 			//		but this wasn't going to give me good results
 			// -	1 / p.distanceSq(en.pos) is just the normal anti gravity thing
 			if(en.live) {
+				eval += (${energy_ratio})*Math.min(en.energy/myEnergy,2);
+				eval += (${energy_diff})*(en.energy - myEnergy);
 				eval += (${enemy_energy})*en.energy;
 				eval += (${my_energy})*myEnergy;
 				eval += (${angle_diff})*(calcAngle(myPos, p) - calcAngle(en.pos, p));
 				eval += (${distance})*p.distanceSq(en.pos);
+				eval += (${center_dist}) * p.distanceSq(new Point2D.Double(getBattleFieldHeight() / 2, getBattleFieldWidth() / 2));
 			}
 		}
 		return eval;
@@ -149,6 +174,8 @@ public class Individual_${id} extends AdvancedRobot
 		}
 		
 		en.energy = e.getEnergy();
+		en.velocity = e.getVelocity();
+		en.heading = e.getHeading();
 		en.live = true;
 		en.pos = calcPoint(myPos, e.getDistance(), getHeadingRadians() + e.getBearingRadians());
 		
@@ -179,6 +206,8 @@ public class Individual_${id} extends AdvancedRobot
 	public class MicroEnemy {
 		public Point2D.Double pos;
 		public double energy;
+		public double velocity;
+		public double heading;
 		public boolean live;
 	}
 }
