@@ -45,13 +45,13 @@ class RoboCodeProblem {
     }
     
     def quality(individual, bestSoFars = []) {
-        if (fitnesses[individual['id']]) {
+        if (fitnesses[individual['id']] != null) {
             return fitnesses[individual['id']]
         }
         ++evalCount
         robotBuilder.buildJarFile(individual)
         battleRunner.buildBattleFile(individual['id'], bestSoFars)
-        def score = -battleRunner.runBattle(individual['id'])
+        def score = battleRunner.runBattle(individual['id'])
         fitnesses[individual['id']] = score
         return score
     }

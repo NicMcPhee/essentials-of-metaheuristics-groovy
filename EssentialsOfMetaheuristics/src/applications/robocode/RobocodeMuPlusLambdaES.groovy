@@ -32,23 +32,23 @@ class RoboCodeMuPlusLambdaES {
                     best = individual
                     bestQuality = problem.quality(best, bestSoFars)
                     println "Best fitness of ${bestQuality} is ${best}."
-//                    if (bestSoFars.size() == 4) {
-//                        bestSoFars.pop()
-//                    }
                     bestSoFars.push(best)
                     println "Best so fars = ${bestSoFars}"
                 }
             }
 
             individualArr = individualArr.sort{problem.quality(it, bestSoFars)}.reverse()[0..<numParents]
+            individualArr.each { print "(${it.id}, ${problem.quality(it, bestSoFars)}) " }
+            println ""
 
-            def children = []
+            // def children = []
             for (i in 0..<numParents) {
                 for (j in 0..<(numChildren / numParents)) {
-                    children.add(problem.tweak(problem.copy(individualArr.get(i))))
+                    individualArr.add(problem.tweak(problem.copy(individualArr.get(i))))
+//                    children.add(problem.tweak(problem.copy(individualArr.get(i))))
                 }
             }
-            individualArr = children
+            // individualArr = children
 
         }
         return best

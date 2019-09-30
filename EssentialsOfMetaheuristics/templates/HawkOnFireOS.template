@@ -5,6 +5,7 @@ import robocode.util.Utils;
 import java.awt.Color;
 import java.util.Hashtable;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.Point2D;
 
@@ -37,6 +38,7 @@ public class Individual_${id} extends AdvancedRobot
 	static Point2D.Double lastPosition;
 	static Point2D.Double myPos;
 	static double myEnergy;
+	private int radarDirection=1;
 	
 //- run -------------------------------------------------------------------------------------------------------------------------------------
 	public void run()
@@ -44,9 +46,9 @@ public class Individual_${id} extends AdvancedRobot
 		setColors(Color.black,Color.red,Color.orange);
 		setAdjustGunForRobotTurn(true);
 		setAdjustRadarForGunTurn(true);
-		
-		setTurnRadarRightRadians(Double.POSITIVE_INFINITY);
-		
+		addCustomEvent(new RadarTurnCompleteCondition(this));
+		setTurnRadarRight(360);
+				
 		nextDestination = lastPosition = myPos = new Point2D.Double(getX(), getY());
 		target = new MicroEnemy();
 		
@@ -178,6 +180,8 @@ public class Individual_${id} extends AdvancedRobot
 		en.heading = e.getHeading();
 		en.live = true;
 		en.pos = calcPoint(myPos, e.getDistance(), getHeadingRadians() + e.getBearingRadians());
+		en.bearing = e.getBearing();
+		en.time = e.getTime();
 		
 		// normal target selection: the one closer to you is the most dangerous so attack him
 		if(!target.live || e.getDistance() < myPos.distance(target.pos)) {
@@ -186,6 +190,52 @@ public class Individual_${id} extends AdvancedRobot
 		
 		// locks the radar if there is only one opponent left
 		if(getOthers()==1)	setTurnRadarLeftRadians(getRadarTurnRemainingRadians());
+	}
+	
+	public void onCustomEvent(CustomEvent e) {
+		if (e.getCondition() instanceof RadarTurnCompleteCondition) sweep();
+	}
+	
+	private void sweep() {
+		double maxBearingAbs=0, maxBearing=0;
+ 		int scannedBots=0;
+		Iterator iterator = enemies.values().iterator();
+		while(iterator.hasNext()) {
+    		MicroEnemy tmp = (MicroEnemy)iterator.next();
+    		if (tmp!=null && tmp.isUpdated()) {
+      			double bearing = Utils.normalRelativeAngle(getHeading() + tmp.bearing - getRadarHeading());
+      			if (Math.abs(bearing)>maxBearingAbs) { 
+        			maxBearingAbs=Math.abs(bearing); 
+        			maxBearing=bearing; 
+      			}
+      			scannedBots++;
+    		}
+  		}
+  		double radarTurn=180*radarDirection;
+ 		if (scannedBots==getOthers()) {
+    		radarTurn=maxBearing+sign(maxBearing) * 22.5;
+    	}
+		setTurnRadarRight(radarTurn);
+		radarDirection=sign(radarTurn);
+	}
+	
+	public static int sign(double n) {
+	/*
+		if (n != n) throw new IllegalArgumentException("Invalid Argument");
+		if (n == 0) return 0;
+    	n *= Double.POSITIVE_INFINITY;
+    	if (n == Double.POSITIVE_INFINITY) return +1;
+    	if (n == Double.NEGATIVE_INFINITY) return -1;
+		//To make the compiler happy.
+		throw new IllegalArgumentException("Oh great, what did you do this time?");
+		*/
+		if (n < 0) {
+			return -1;
+		} else if (n == 0) {
+			return 0;
+		} else {
+			return 1;
+		}
 	}
 	
 //- minor events ----------------------------------------------------------------------------------------------------------------------------
@@ -208,6 +258,11 @@ public class Individual_${id} extends AdvancedRobot
 		public double energy;
 		public double velocity;
 		public double heading;
+		public double bearing;
 		public boolean live;
+		public long time;
+		public boolean isUpdated() {
+			return (getTime() - time) < 10;
+		}
 	}
 }

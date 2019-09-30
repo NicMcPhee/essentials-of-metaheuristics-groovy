@@ -45,13 +45,16 @@ class BattleRunner {
         def result = -1
         lines.each { line ->
 //            def pattern = ~/evolved\.Individual_${id}.+(\d+)\s+\d+\s+\d+\s*&/
-            def pattern = ~/(\d+)\w+:\s+evolved\.Individual_${id}/
+//            def pattern = ~/(\d+)\w+:\s+evolved\.Individual_${id}/
+//            def pattern = ~/evolved\.Individual_${id}\s+\d+\s+\((\d+)%\)/
+            def pattern = ~/evolved\.Individual_${id}\s+\d+\s+\(\d+%\)\s+\d+\s+\d+\s+(\d+)/
             if (line =~ /%/) {
                 println line
             }
             def m = (line =~ pattern)
             if (m) {
                 result = Integer.parseInt(m[0][1])
+//                println "Score = ${result}"
             }
         }
         if (result >= 0) {

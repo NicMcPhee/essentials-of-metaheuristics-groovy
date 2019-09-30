@@ -6,5 +6,6 @@ robocode.battle.gunCoolingRate=0.1
 robocode.battle.rules.inactivityTime=450
 robocode.battle.hideEnemyNames=true
 #robocode.battle.selectedRobots=rz.HawkOnFire,sample.Walls,sample.MyFirstRobot,sample.RamFire,sample.SpinBot,sample.Tracker,sample.TrackFire,sample.VelociRobot,sample.SittingDuck,nicsEvolved.NicRoundOne,evolved.Individual_${id} ${otherRobots}
-robocode.battle.selectedRobots=sample.SittingDuck,evolved.Individual_${id} ${otherRobots}
-
+#robocode.battle.selectedRobots=sample.SittingDuck,evolved.HypeMachine_31,evolved.Individual_${id} ${otherRobots}
+#robocode.battle.selectedRobots=evolved.HypeMachine_31,evolved.Individual_${id}
+robocode.battle.selectedRobots=evolved.HypeMachine_10352,evolved.Individual_${id}
